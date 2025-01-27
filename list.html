@@ -10,7 +10,7 @@
   <body>
     <!-- Use header, main, and footer elements to give semantic structure -->
     <header>
-      <img src="taskie-logo.svg" alt="Taskie Logo" />
+      <img src="taskie-logo.svg" alt="Taskie Logo" width="24px" height="24px" />
       <h1>Taskie</h1>
 
       <!-- Navigation elements -->
@@ -29,19 +29,77 @@
     </header>
 
     <main>
-      <h1>Take Control with Taskie</h1>
-      <form method="get" action="list.html">
-        <div>
-          <span>Email</span>
-          <input type="text" placeholder="your@email.com" />
-        </div>
-        <div>
-          <span>Password</span>
-          <input type="password" placeholder="password" />
-        </div>
-        <button type="submit">Login</button>
-        <button type="submit">Create</button>
-      </form>
+      <div>
+        <input
+          type="image"
+          src="images/mdi/chevron-left.svg"
+          alt="Previous Day"
+          width="24px"
+          height="24px"
+        />
+        <span>Today</span>
+        <input
+          type="image"
+          src="images/mdi/chevron-right.svg"
+          alt="Next Day"
+          width="24px"
+          height="24px"
+        />
+        <ul>
+          <li>
+            <input type="checkbox" />
+            <span>Cleaning</span>
+            <ul>
+              <li>
+                <input type="checkbox" />
+                <span>Bathroom</span>
+              </li>
+              <li>
+                <input type="checkbox" />
+                <span>Front Patio</span>
+              </li>
+              <li>
+                <input type="checkbox" />
+                <span>Dishes</span>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <input type="checkbox" />
+            <span>Homework</span>
+            <ul>
+              <li>
+                <input type="checkbox" />
+                <span>CS260</span>
+                <ul>
+                  <li>
+                    <input type="checkbox" />
+                    <span>Design Specs</span>
+                  </li>
+                  <li>
+                    <input type="checkbox" />
+                    <span>Key Features</span>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <input type="checkbox" />
+                <span>Calculus</span>
+              </li>
+              <li>
+                <input type="checkbox" />
+                <span>English Exam Studying</span>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <br />
+        <h4>Inactive Smart Tasks</h4>
+        <ul>
+          <li>
+            <span>Clean the Pool</span>
+          </li>
+      </div>
     </main>
 
     <footer>
