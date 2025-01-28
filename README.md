@@ -39,9 +39,9 @@ I am going to use the required technologies in the following ways.
 - **CSS** - Stylization will be used for the on-screen organizations of the various components that will adapt to the screen size. It will have a unique theme throughout the application.
 - **React** - Conditional rendering of various React-defined components in the style of a single-page dynamic application
 - **Service** - A backend service with endpoints for:
-    - login
-    - Reading/writing user's task list
-    - Accessing public weather API
+  - login
+  - Reading/writing user's task list
+  - Accessing public weather API
 - **DB/Login** - Store users and their task lists in a database. Authenticate users, save a user's task list if signed in to be accessible anywhere
 - **WebSocket** - When a shared list is modified, the modification is broadcasted to all users currently on the shared list
 
@@ -49,21 +49,21 @@ I am going to use the required technologies in the following ways.
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Server deployed and accessible with custom domain name** - [My server link](https://yourdomainnamehere.click).
+- [x] **Server deployed and accessible with custom domain name** - [My server link](https://taskie.click).
 
 ## 🚀 HTML deliverable
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **HTML pages** - I did not complete this part of the deliverable.
-- [ ] **Proper HTML element usage** - I did not complete this part of the deliverable.
-- [ ] **Links** - I did not complete this part of the deliverable.
-- [ ] **Text** - I did not complete this part of the deliverable.
-- [ ] **3rd party API placeholder** - I did not complete this part of the deliverable.
-- [ ] **Images** - I did not complete this part of the deliverable.
-- [ ] **Login placeholder** - I did not complete this part of the deliverable.
-- [ ] **DB data placeholder** - I did not complete this part of the deliverable.
-- [ ] **WebSocket placeholder** - I did not complete this part of the deliverable.
+- [x] **HTML pages** - I have my default login page along with the task list page and an Add Task page, 3 in total.
+- [x] **Proper HTML element usage** - I have used proper HTML structure including BODY, NAV, MAIN, HEADER, and FOOTER on every one of my pages, including a logical structure for the content of the app.
+- [x] **Links** - There are working links in both the header of the page and at places such as "Add Task" button on the task list and the "Create Task" button at the end of the creating task form links you back to the list.
+- [x] **Text** - There are various textual descriptions and labels throughout the application to help describe how to properly use the app.
+- [x] **3rd party API placeholder** - There is a placeholder for the external weather API that I will be querying.
+- [x] **Images** - There are various images, such as a brand logo, chevron icons, and weather indicators on the site.
+- [x] **Login placeholder** - The default page is a login/signup form that accepts an email and password. Additionally, the task list page includes your current username in the "Collaborators" section
+- [x] **DB data placeholder** - The task list represents data that will be stored in a DB for each user
+- [x] **WebSocket placeholder** - The collaborators section indicates who is currently active (all users who are currently on the websocket) and through the websocket the task list will automatically upate with changes made by other users.
 
 ## 🚀 CSS deliverable
 
