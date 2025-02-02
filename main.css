@@ -1,0 +1,120 @@
+:root {
+    --light-green: rgb(55, 200, 55);
+    --dark-green: rgb(32, 77, 5);
+    --background: rgb(13, 15, 12);
+    --darkened-white: rgb(255, 255, 255, 0.75);
+    --darkened-green: rgb(55, 200, 55, 0.75);
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-width: 375px;
+    background-color: var(--background);
+    color: white;
+}
+
+header {
+    flex: 0 80px;
+    background-color: var(--dark-green);
+    width: 110%;
+    margin-left: -1%;
+    margin-top: -1%;
+    border-bottom: 2px solid white;
+}
+
+header .logo-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 1%;
+    margin-top: 1%;
+    text-decoration: none;
+}
+
+header .logo-section img {
+    height: 60px;
+    width: 60px;
+}
+
+header .logo-section h1 {
+    padding-left: 20px;
+    margin: 0;
+    font-size: 3.5em;
+    color: var(--light-green);
+}
+
+
+menu {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    justify-content: flex-start;
+}
+
+menu li {
+    padding: 0 1em;
+    text-decoration: none;
+}
+
+menu li a {
+    text-decoration: none;
+    font-size: large;
+    font-weight: bold;
+    color: white;
+}
+
+menu li a:hover {
+    color: var(--darkened-white);
+}
+
+menu li a.selected {
+    font-weight: bold;
+    color: var(--light-green);
+}
+
+menu li a.selected:hover {
+    color: var(--darkened-green);
+}
+
+main {
+    flex: 1 calc(100vh - 110px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+
+
+footer {
+    flex: 0 30px;
+}
+
+.navbar-brand {
+    padding-left: 0.3em;
+    border-bottom: solid rgb(182, 182, 182) thin;
+}
+
+menu .nav-item {
+    padding: 0 0.3em;
+}
+
+footer a {
+    float: right;
+}
+
+@media (max-height: 600px) {
+    header {
+        display: none;
+    }
+
+    footer {
+        display: none;
+    }
+
+    main {
+        flex: 1 100vh;
+    }
+}

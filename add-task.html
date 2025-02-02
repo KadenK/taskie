@@ -6,12 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Taskie - Add a Task</title>
     <link rel="icon" href="taskie-logo.svg" />
+    <link rel="stylesheet" href="main.css" />
   </head>
   <body>
     <!-- Use header, main, and footer elements to give semantic structure -->
     <header>
-      <img src="taskie-logo.svg" alt="Taskie Logo" width="24px" height="24px" />
-      <h1>Taskie</h1>
+      <a class="logo-section" href="index.html">
+        <img
+          src="taskie-logo.svg"
+          alt="Taskie Logo"
+          width="24px"
+          height="24px"
+        />
+        <h1>Taskie</h1>
+      </a>
 
       <!-- Navigation elements -->
       <nav>
@@ -19,12 +27,9 @@
         <menu>
           <li><a href="index.html">Home</a></li>
           <li><a href="list.html">My Tasks</a></li>
-          <li><a href="add-task.html">Add a Task</a></li>
+          <li><a href="add-task.html" class="selected">Add a Task</a></li>
         </menu>
       </nav>
-
-      <!-- Since we don't have the ability to style we use old style HTML to give some visual formatting -->
-      <hr />
     </header>
 
     <main>
