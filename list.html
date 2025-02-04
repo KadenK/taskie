@@ -7,6 +7,7 @@
     <title>Taskie - Tasks</title>
     <link rel="icon" href="taskie-logo.svg" />
     <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="list.css" />
   </head>
   <body>
     <!-- Use header, main, and footer elements to give semantic structure -->
@@ -33,23 +34,25 @@
     </header>
 
     <main>
-      <div>
-        <input
-          type="image"
-          src="images/mdi/chevron-left.svg"
-          alt="Previous Day"
-          width="24px"
-          height="24px"
-        />
-        <h3>Today</h3>
-        <input
-          type="image"
-          src="images/mdi/chevron-right.svg"
-          alt="Next Day"
-          width="24px"
-          height="24px"
-        />
-        <ul>
+      <div class="left-container">
+        <div class="day-selector">
+          <input
+            type="image"
+            src="images/mdi/chevron-left.svg"
+            alt="Previous Day"
+            width="24px"
+            height="24px"
+          />
+          <h3>Today</h3>
+          <input
+            type="image"
+            src="images/mdi/chevron-right.svg"
+            alt="Next Day"
+            width="24px"
+            height="24px"
+          />
+        </div>
+        <ul class="list">
           <li>
             <input type="checkbox" />
             <span>Cleaning</span>
@@ -105,51 +108,64 @@
           </li>
         </ul>
 
-        <button type="button" onclick="location.href='add-task.html'">
+        <button
+          class="add-task"
+          type="button"
+          onclick="location.href='add-task.html'"
+        >
           Add Task
         </button>
       </div>
 
-      <div>
-        <h3>Collaborators</h3>
-        <ul>
-          <li>
-            <span>John Doe</span>
-            <span>(You)</span>
-          </li>
-          <li>
-            <span>Jane Doe</span>
-            <span>(Active)</span>
-          </li>
-          <li>
-            <span>Joseph Doe</span>
-          </li>
-        </ul>
-        <div>Add another user to your list:</div>
-        <input type="email" placeholder="friend@email.com" />
-        <button type="button">Share</button>
-      </div>
-
-      <div>
-        <div>
-          <h3>Weather Today</h3>
-          <img
-            src="images/weather/wi-day-sunny.svg"
-            alt="Sunny"
-            width="64px"
-            height="64px"
+      <div class="right-container">
+        <div class="collaborators-container">
+          <h3>Collaborators</h3>
+          <ul>
+            <li>
+              <span>John Doe</span>
+              <span>(You)</span>
+            </li>
+            <li>
+              <span>Jane Doe</span>
+              <span>(Active)</span>
+            </li>
+            <li>
+              <span>Joseph Doe</span>
+            </li>
+          </ul>
+          <div>Add another user to your list:</div>
+          <input
+            class="share-input"
+            type="email"
+            placeholder="friend@email.com"
           />
-          <span>85°F</span>
+          <button type="button">Share</button>
         </div>
-        <div>
-          <h3>Weather Tomorrow</h3>
-          <img
-            src="images/weather/wi-day-snow.svg"
-            alt="Snowy"
-            width="64px"
-            height="64px"
-          />
-          <span>2°F</span>
+
+        <div class="weather-container">
+          <h3 class="weather-title">Weather</h3>
+          <div class="weather-items">
+            <div class="weather-item weather-today">
+              <h4>Today</h4>
+              <img
+                src="images/weather/wi-day-sunny.svg"
+                alt="Sunny"
+                width="64px"
+                height="64px"
+              />
+              <span>85°F</span>
+            </div>
+            <div class="weather-item weather-tomorrow">
+              <h4>Tomorrow</h4>
+              <img
+                src="images/weather/wi-day-snow.svg"
+                alt="Snowy"
+                width="64px"
+                height="64px"
+              />
+              <span>2°F</span>
+            </div>
+          </div>
         </div>
       </div>
     </main>

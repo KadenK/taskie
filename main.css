@@ -144,20 +144,27 @@ main.signin form .buttons {
     width: 100%;
 }
 
+button {
+    margin: 5px 10px;
+    padding: 5px 10px;
+    border-radius: 15px;
+    border: 2px solid var(--light-green);
+    background-color: var(--dark-green);
+    color: white;
+}
+
+button:hover {
+    background-color: var(--light-green);
+    color: var(--dark-green);
+}
+
 main.signin form .buttons button {
     margin: 15px 20px;
     padding: 10px 20px;
     border-radius: 30px;
-    border: 2px solid var(--light-green);
-    background-color: var(--dark-green);
-    color: white;
     font-size: large;
 }
 
-main.signin form .buttons button:hover {
-    background-color: var(--light-green);
-    color: var(--dark-green);
-}
 
 footer {
     flex: 0 30px;
@@ -170,6 +177,10 @@ footer {
 
 menu .nav-item {
     padding: 0 0.3em;
+}
+
+footer hr {
+    border-color: var(--dark-green);
 }
 
 footer a {
