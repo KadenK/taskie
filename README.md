@@ -69,12 +69,12 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Header, footer, and main content body** - I did not complete this part of the deliverable.
-- [ ] **Navigation elements** - I did not complete this part of the deliverable.
-- [ ] **Responsive to window resizing** - I did not complete this part of the deliverable.
-- [ ] **Application elements** - I did not complete this part of the deliverable.
-- [ ] **Application text content** - I did not complete this part of the deliverable.
-- [ ] **Application images** - I did not complete this part of the deliverable.
+- [x] **Header, footer, and main content body** - The majority of these elements were styled globally using main.css, including many repeat elements of the body to havea consistent styling across the whole site.
+- [x] **Navigation elements** - I did my own, simple, styled flex row nav bar
+- [x] **Responsive to window resizing** - Using display flex and conditions upon when it should be row vs a column (especially on the lsit page) I was able to dynamically change the page to fit smaller screens
+- [x] **Application elements** - Many elements were styled in a consistent manner across the site, giving a unified theme.
+- [x] **Application text content** - Styled many text alignments, sizes, and colors in order to have a pleasant looking site
+- [x] **Application images** - These tend to have inline styling to change the size of the images to fit appropriately. Once I add react, I will probably turn each of the images into a component that will be an inline SVG that can be stylized using CSS.
 
 ## 🚀 React part 1: Routing deliverable
 
