@@ -158,6 +158,23 @@ button:hover {
     color: var(--dark-green);
 }
 
+select {
+    margin: 10px;
+    padding: 5px;
+    border-radius: 30px;
+    border: 2px solid var(--dark-green);
+    width: 80%;
+}
+
+select:hover, select:focus {
+    outline: 3px solid var(--light-green);
+}
+
+select>option {
+    background-color: var(--dark-green);
+    color: white;
+}
+
 main.signin form .buttons button {
     margin: 15px 20px;
     padding: 10px 20px;
@@ -187,7 +204,7 @@ footer a {
     float: right;
 }
 
-@media (max-height: 600px) {
+@media (max-height: 600px), (max-width: 450px) {
     header {
         height: fit-content;
         flex: none;
