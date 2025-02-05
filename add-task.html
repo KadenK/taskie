@@ -7,6 +7,7 @@
     <title>Taskie - Add a Task</title>
     <link rel="icon" href="taskie-logo.svg" />
     <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="add-task.css" />
   </head>
   <body>
     <!-- Use header, main, and footer elements to give semantic structure -->
@@ -48,30 +49,40 @@
             <option value="shopping">Shopping</option>
           </select>
         </div>
-        <div>
-          <label>Date</label>
-          <input type="date" />
-          <span>-</span>
-          <input type="date" />
-          <label>Multi-day:</label>
-          <input type="checkbox" />
+        <div class="multi-level">
+          <div>
+            <label>Date</label>
+            <div class="multi-day-container">
+              <label>Multi-day:</label>
+              <input type="checkbox" />
+            </div>
+          </div>
+          <div>
+            <input type="date" />
+            <span>-</span>
+            <input type="date" />
+          </div>
         </div>
-        <div>
-          <label>Smart Condition</label>
-          <input type="checkbox" />
-          <span>If the weather</span>
-          <select id="smart" name="smart">
-            <option value="today">today</option>
-            <option value="tomorrow">tomorrow</option>
-          </select>
-          <span>is</span>
-          <select id="smart" name="smart">
-            <option value="sunny">sunny</option>
-            <option value="rainy">rainy</option>
-            <option value="snowy">snowy</option>
-            <option value="freezing">freezing</option>
-            <option value="windy">windy</option>
-          </select>
+        <div class="multi-level">
+          <div>
+            <label>Smart Condition: </label>
+            <input type="checkbox" />
+          </div>
+          <div class="smart-condition-container">
+            <span>If the weather</span>
+            <select id="smart-day" name="smart-day">
+              <option value="today">today</option>
+              <option value="tomorrow">tomorrow</option>
+            </select>
+            <span>is</span>
+            <select id="smart-weather" name="smart-weather">
+              <option value="sunny">sunny</option>
+              <option value="rainy">rainy</option>
+              <option value="snowy">snowy</option>
+              <option value="freezing">freezing</option>
+              <option value="windy">windy</option>
+            </select>
+          </div>
         </div>
         <button type="submit">Create Task</button>
       </form>
@@ -80,7 +91,6 @@
     <footer>
       <hr />
       <span class="text-reset">Kaden Keep</span>
-      <br />
       <a href="https://github.com/KadenK/taskie">GitHub Repository</a>
     </footer>
   </body>

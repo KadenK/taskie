@@ -1,0 +1,79 @@
+main {
+    font-size: 1.2rem;
+}
+
+input {
+    accent-color: var(--light-green);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
+    min-width: 300px;
+}
+
+form>div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+}
+
+form>div.multi-level {
+    flex-direction: column;
+    margin-bottom: 25px;
+}
+
+form>div>label {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 15px;
+    text-align: left;
+}
+
+form>div.multi-level>div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 8px 0 0 0;
+    width: fit-content
+}
+
+form>div.multi-level>div>label {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 5px 20px 0 0;
+    text-align: left;
+    width: auto;
+}
+
+form>div>input {
+    height: 1.3rem;
+}
+
+.multi-day-container {
+    margin: 10px;
+    display: inline;
+    margin-left: auto;
+    align-items: center;
+}
+
+.multi-level .multi-day-container label {
+    font-size: 1rem;
+    font-weight: lighter;
+    margin-right: -5px;
+}
+
+.smart-condition-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.smart-condition-container select {
+    margin: 0 10px;
+}
