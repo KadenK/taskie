@@ -3,7 +3,7 @@ import "./add-task.scss";
 
 export function AddTask() {
   return (
-    <main>
+    <main className="add-task">
       <h1>Add a New Task</h1>
       <form method="get" action="list.html">
         <div>

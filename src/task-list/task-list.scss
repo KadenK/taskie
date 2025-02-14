@@ -1,94 +1,96 @@
-main {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-evenly;
-}
+main.task-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
 
-.left-container {
+  .left-container {
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 40px;
     width: fit-content;
-}
+  }
 
-.day-selector {
+  .day-selector {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     width: 100%;
-}
 
-.day-selector input {
-    padding: 5px;
-}
+    input {
+      padding: 5px;
+    }
 
-.day-selector h3 {
-    margin: 0 10px;
-}
+    h3 {
+      margin: 0 10px;
+    }
+  }
 
-.list li {
-    list-style: none;
-    margin: 10px 0;
-}
+  .list {
+    li {
+      list-style: none;
+      margin: 10px 0;
 
-.list li input {
-    margin: 0 10px;
-    border-radius: 50%;
-    border: none;
-    accent-color: var(--light-green);
-}
+      input {
+        margin: 0 10px;
+        border-radius: 50%;
+        border: none;
+        accent-color: var(--light-green);
+      }
 
-.list li span:hover {
-    cursor: pointer;
-    color: var(--light-green);
-}
+      span:hover {
+        cursor: pointer;
+        color: var(--light-green);
+      }
+    }
+  }
 
-.right-container {
+  .right-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: fit-content;
     padding: 40px;
-}
+  }
 
-.share-input {
+  .share-input {
     border: none;
     border-bottom: 1px solid var(--light-green);
     background: none;
     outline: none;
     padding: 5px 0;
     color: white;
-}
+  }
 
-.weather-container {
+  .weather-container {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
     width: 100%;
-}
 
-.weather-title {
-    margin: 40px 0 20px 0;
-}
+    .weather-title {
+      margin: 40px 0 20px 0;
+    }
 
-.weather-items {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-}
+    .weather-items {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
 
-.weather-item {
-    margin: 0 50px;
-}
+      .weather-item {
+        margin: 0 50px;
 
-.weather-item h4 {
-    margin: 10px 0 5px 0;
+        h4 {
+          margin: 10px 0 5px 0;
+        }
+      }
+    }
+  }
 }

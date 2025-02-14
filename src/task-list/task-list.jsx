@@ -3,7 +3,7 @@ import "./task-list.scss";
 
 export function TaskList() {
   return (
-    <main>
+    <main className="task-list">
       <div className="left-container">
         <div className="day-selector">
           <input

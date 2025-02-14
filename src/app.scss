@@ -1,167 +1,166 @@
 :root {
-    --light-green: rgb(56, 199, 56);
-    --dark-green: rgb(32, 77, 5);
-    --background: rgb(13, 15, 12);
-    --darkened-white: rgb(255, 255, 255, 0.75);
-    --darkened-green: rgb(55, 200, 55, 0.75);
+  --light-green: rgb(56, 199, 56);
+  --dark-green: rgb(32, 77, 5);
+  --background: rgb(13, 15, 12);
+  --darkened-white: rgb(255, 255, 255, 0.75);
+  --darkened-green: rgb(55, 200, 55, 0.75);
 }
 
 .light-green {
-    color: var(--light-green);
+  color: var(--light-green);
 }
+
 .dark-green {
-    color: var(--dark-green);
+  color: var(--dark-green);
 }
 
 body {
-    background-color: var(--background);
-    color: white;
+  background-color: var(--background);
+  color: white;
 }
 
 .body {
-    display: flex;
-    flex-direction: column;
-    min-width: 375px;
+  display: flex;
+  flex-direction: column;
+  min-width: 375px;
 }
 
 header {
-    flex: 0 80px;
-    background-color: var(--dark-green);
-    border-bottom: 2px solid white;
-}
+  flex: 0 80px;
+  background-color: var(--dark-green);
+  border-bottom: 2px solid white;
 
-header .logo-section {
+  .logo-section {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
     text-decoration: none;
-}
 
-header .logo-section img {
-    height: 60px;
-    width: 60px;
-}
+    img {
+      height: 60px;
+      width: 60px;
+    }
 
-header .logo-section h1 {
-    padding-left: 20px;
-    margin: 0;
-    font-size: 3.5em;
-    color: var(--light-green);
+    h1 {
+      padding-left: 20px;
+      margin: 0;
+      font-size: 3.5em;
+      color: var(--light-green);
+    }
+  }
 }
-
 
 menu {
-    display: flex;
-    flex-direction: row;
-    list-style: none;
-    justify-content: flex-start;
-}
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  justify-content: flex-start;
 
-menu li {
+  li {
     padding: 0 1em;
     text-decoration: none;
-}
 
-menu li a {
-    text-decoration: none;
-    font-size: large;
-    font-weight: bold;
-    color: white;
-}
+    a {
+      text-decoration: none;
+      font-size: large;
+      font-weight: bold;
+      color: white;
 
-menu li a:hover {
-    color: var(--darkened-white);
-}
+      &:hover {
+        color: var(--darkened-white);
+      }
 
-menu li a.selected {
-    font-weight: bold;
-    color: var(--light-green);
-}
+      &.selected {
+        font-weight: bold;
+        color: var(--light-green);
 
-menu li a.selected:hover {
-    color: var(--darkened-green);
-}
+        &:hover {
+          color: var(--darkened-green);
+        }
+      }
+    }
 
-menu .nav-item {
-    padding: 0 0.3em;
+    &.nav-item {
+      padding: 0 0.3em;
+    }
+  }
 }
-
 
 /* General Styles */
 main {
-    flex: 1 calc(85vh - 200px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: start;
+  flex: 1 calc(85vh - 200px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
 }
 
 button {
-    margin: 5px 10px;
-    padding: 5px 10px;
-    border-radius: 15px;
-    border: 2px solid var(--light-green);
-    background-color: var(--dark-green);
-    color: white;
-}
+  margin: 5px 10px;
+  padding: 5px 10px;
+  border-radius: 15px;
+  border: 2px solid var(--light-green);
+  background-color: var(--dark-green);
+  color: white;
 
-button:hover {
+  &:hover {
     background-color: var(--light-green);
     color: var(--dark-green);
+  }
 }
 
 select {
-    margin: 10px;
-    padding: 5px;
-    border-radius: 30px;
-    border: 2px solid var(--dark-green);
-    width: 80%;
-}
+  margin: 10px;
+  padding: 5px;
+  border-radius: 30px;
+  border: 2px solid var(--dark-green);
+  width: 80%;
 
-select:hover, select:focus {
+  &:hover,
+  &:focus {
     outline: 3px solid var(--light-green);
-}
+  }
 
-select>option {
+  > option {
     background-color: var(--dark-green);
     color: white;
+  }
 }
-
 /* End General Styles */
 
-
 footer {
-    flex: 0 30px;
+  flex: 0 30px;
+
+  hr {
+    border-color: var(--dark-green);
+  }
+
+  a {
+    float: right;
+  }
 }
 
 .navbar-brand {
-    padding-left: 0.3em;
-    border-bottom: solid rgb(182, 182, 182) thin;
-}
-
-footer hr {
-    border-color: var(--dark-green);
-}
-
-footer a {
-    float: right;
+  padding-left: 0.3em;
+  border-bottom: solid rgb(182, 182, 182) thin;
 }
 
 @media (max-height: 600px), (max-width: 450px) {
-    header {
-        height: fit-content;
-        flex: none;
-    }
-    header .logo-section {
-        display: none;
-    }
+  header {
+    height: fit-content;
+    flex: none;
 
-    footer {
-        display: none;
+    .logo-section {
+      display: none;
     }
+  }
 
-    main {
-        flex: 1 100vh;
-    }
+  footer {
+    display: none;
+  }
+
+  main {
+    flex: 1 100vh;
+  }
 }

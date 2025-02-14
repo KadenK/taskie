@@ -1,105 +1,107 @@
-main {
-    font-size: 1.2rem;
-}
+main.add-task {
+  font-size: 1.2rem;
 
-input {
+  input {
     accent-color: var(--light-green);
-}
 
-input[type="text"] {
-    border-radius: 20px;
-    padding: 2px 8px;
-    border: none;
-    background-color: white;
-    color: black;
-}
+    &[type="text"] {
+      border-radius: 20px;
+      padding: 2px 8px;
+      border: none;
+      background-color: white;
+      color: black;
 
-input[type="text"]:focus, input[type="text"]:hover {
-    outline: 3px solid var(--light-green);
-}
+      &:focus,
+      &:hover {
+        outline: 3px solid var(--light-green);
+      }
+    }
 
-input[type="date"] {
-    margin: 0 5px;
-    border-radius: 20px;
-    padding: 2px 8px;
-    border: none;
-    background-color: white;
-    color: black;
-}
+    &[type="date"] {
+      margin: 0 5px;
+      border-radius: 20px;
+      padding: 2px 8px;
+      border: none;
+      background-color: white;
+      color: black;
 
-input[type="date"]:focus, input[type="date"]:hover {
-    outline: 3px solid var(--light-green);
-}
+      &:focus,
+      &:hover {
+        outline: 3px solid var(--light-green);
+      }
+    }
+  }
 
-form {
+  form {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     margin: 10px 0;
     min-width: 250px;
-}
 
-form>div {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 10px 0;
-}
+    > div {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 10px 0;
 
-form>div.multi-level {
-    flex-direction: column;
-    margin-bottom: 25px;
-}
+      &.multi-level {
+        flex-direction: column;
+        margin-bottom: 25px;
 
-form>div>label {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin: 15px;
-    text-align: left;
-}
+        > div {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin: 8px 0 0 0;
+          width: fit-content;
 
-form>div.multi-level>div {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 8px 0 0 0;
-    width: fit-content
-}
+          > label {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 5px 20px 0 0;
+            text-align: left;
+            width: auto;
+          }
+        }
+      }
 
-form>div.multi-level>div>label {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin: 5px 20px 0 0;
-    text-align: left;
-    width: auto;
-}
+      > label {
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin: 15px;
+        text-align: left;
+      }
 
-form>div>input {
-    height: 1.3rem;
-}
+      > input {
+        height: 1.3rem;
+      }
+    }
+  }
 
-.multi-day-container {
+  .multi-day-container {
     margin: 10px;
     display: inline;
     margin-left: auto;
     align-items: center;
-}
 
-.multi-level .multi-day-container label {
-    font-size: 1rem;
-    font-weight: lighter;
-    margin-right: -5px;
-}
+    label {
+      font-size: 1rem;
+      font-weight: lighter;
+      margin-right: -5px;
+    }
+  }
 
-.smart-condition-container {
+  .smart-condition-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-}
 
-.smart-condition-container select {
-    margin: 0 5px;
-    width: fit-content;
+    select {
+      margin: 0 5px;
+      width: fit-content;
+    }
+  }
 }
