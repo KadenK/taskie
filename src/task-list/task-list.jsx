@@ -8,7 +8,7 @@ export function TaskList() {
         <div className="day-selector">
           <input
             type="image"
-            src="images/mdi/chevron-left.svg"
+            src="/mdi/chevron-left.svg"
             alt="Previous Day"
             width="24px"
             height="24px"
@@ -16,7 +16,7 @@ export function TaskList() {
           <h3>Today</h3>
           <input
             type="image"
-            src="images/mdi/chevron-right.svg"
+            src="/mdi/chevron-right.svg"
             alt="Next Day"
             width="24px"
             height="24px"
@@ -118,7 +118,7 @@ export function TaskList() {
             <div className="weather-item weather-today">
               <h4>Today</h4>
               <img
-                src="images/weather/wi-day-sunny.svg"
+                src="/weather/wi-day-sunny.svg"
                 alt="Sunny"
                 width="64px"
                 height="64px"
@@ -128,7 +128,7 @@ export function TaskList() {
             <div className="weather-item weather-tomorrow">
               <h4>Tomorrow</h4>
               <img
-                src="images/weather/wi-day-snow.svg"
+                src="/weather/wi-day-snow.svg"
                 alt="Snowy"
                 width="64px"
                 height="64px"
