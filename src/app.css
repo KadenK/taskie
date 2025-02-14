@@ -14,11 +14,14 @@
 }
 
 body {
+    background-color: var(--background);
+    color: white;
+}
+
+.body {
     display: flex;
     flex-direction: column;
     min-width: 375px;
-    background-color: var(--background);
-    color: white;
 }
 
 header {
