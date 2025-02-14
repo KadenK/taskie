@@ -1,0 +1,62 @@
+main.signin {
+  margin-top: 10%;
+  margin-bottom: auto;
+}
+
+main.signin>div {
+  margin: 20px;
+}
+
+main.signin h1 {
+  display: inline;
+  margin: 3px;
+}
+
+main.signin form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 25%;
+  min-width: 300px;
+}
+
+main.signin form>div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+main.signin form span {
+  width: 20%;
+  padding: 10px;
+  font-size: large;
+}
+
+main.signin form input {
+  margin: 10px;
+  padding: 5px;
+  border-radius: 30px;
+  border: 2px solid var(--light-green);
+  width: 80%;
+}
+
+main.signin form input:focus {
+  outline: 3px solid var(--light-green);
+}
+
+main.signin form .buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+main.signin form .buttons button {
+  margin: 15px 20px;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: large;
+}

@@ -1,5 +1,5 @@
 import React from "react";
-import "./app.css";
+import "./app.scss";
 import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
 import { Login } from "./login/login";
 import { TaskList } from "./task-list/task-list";
@@ -23,13 +23,28 @@ export default function App() {
           <nav>
             <menu>
               <li>
-                <NavLink to="/">Login</NavLink>
+                <NavLink
+                  to="/"
+                  className={({ isActive }) => (isActive ? "selected" : "")}
+                >
+                  Login
+                </NavLink>
               </li>
               <li>
-                <NavLink to="/task-list">My Tasks</NavLink>
+                <NavLink
+                  to="/task-list"
+                  className={({ isActive }) => (isActive ? "selected" : "")}
+                >
+                  My Tasks
+                </NavLink>
               </li>
               <li>
-                <NavLink to="/add-task">Add a Task</NavLink>
+                <NavLink
+                  to="/add-task"
+                  className={({ isActive }) => (isActive ? "selected" : "")}
+                >
+                  Add a Task
+                </NavLink>
               </li>
             </menu>
           </nav>

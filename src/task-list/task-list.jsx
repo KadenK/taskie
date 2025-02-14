@@ -1,5 +1,5 @@
 import React from "react";
-import "./task-list.css";
+import "./task-list.scss";
 
 export function TaskList() {
   return (

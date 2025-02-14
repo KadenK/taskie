@@ -1,5 +1,5 @@
 import React from "react";
-import "./add-task.css";
+import "./add-task.scss";
 
 export function AddTask() {
   return (
