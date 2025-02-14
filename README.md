@@ -80,9 +80,9 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Bundled using Vite** - I did not complete this part of the deliverable.
-- [ ] **Components** - I did not complete this part of the deliverable.
-- [ ] **Router** - Routing between login and voting components.
+- [x] **Bundled using Vite** - I just let npm run dev do its thing
+- [x] **Components** - I built the login, add-task, and task-list component from the old html pages. They currently look and behave exactly the same as they did before react.
+- [x] **Router** - Routing between login, task list, and add tasks through both the header tabs and through various on-page buttons (such as "Add Task" button on the task list)
 
 ## 🚀 React part 2: Reactivity
 
