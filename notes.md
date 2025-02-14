@@ -20,3 +20,15 @@ If I am going to change some of the page navigation, I need to make sure I updat
 ```html
 <img src="taskie-logo.svg" alt="Taskie Logo" width="24px" height="24px" />
 ```
+
+#### Linking with React
+
+If you want to use a button that links to another page, do this:
+
+```html
+<Link to="/add-task">
+  <button className="add-task" type="button">
+    Add Task
+  </button>
+</Link>
+```
