@@ -1,5 +1,6 @@
 import React from "react";
 import "./task-list.scss";
+import { Link } from "react-router-dom";
 
 export function TaskList() {
   return (
@@ -78,13 +79,11 @@ export function TaskList() {
           </li>
         </ul>
 
-        <button
-          className="add-task"
-          type="button"
-          onclick="location.href='add-task.html'"
-        >
-          Add Task
-        </button>
+        <Link to="/add-task">
+          <button className="add-task" type="button">
+            Add Task
+          </button>
+        </Link>
       </div>
 
       <div className="right-container">

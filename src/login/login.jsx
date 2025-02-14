@@ -8,7 +8,7 @@ export function Login() {
         <h1>Take control of your day with</h1>
         <h1 className="light-green">Taskie</h1>
       </div>
-      <form method="get" action="list.html">
+      <form method="get" action="/task-list">
         <div>
           <span>Email</span>
           <input type="text" placeholder="your@email.com" />

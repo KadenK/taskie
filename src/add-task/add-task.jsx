@@ -5,7 +5,7 @@ export function AddTask() {
   return (
     <main className="add-task">
       <h1>Add a New Task</h1>
-      <form method="get" action="list.html">
+      <form method="get" action="task-list">
         <div>
           <label>Task Name</label>
           <input type="text" placeholder="Name" />
