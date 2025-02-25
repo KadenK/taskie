@@ -1,27 +1,32 @@
 import React from "react";
 import "./login.scss";
+import { Unauthenticated } from "./unauthenticated";
+import { Authenticated } from "./authenticated";
+import { AuthState } from "./authState";
 
-export function Login() {
+export function Login({ userName, authState, onAuthChange }) {
   return (
     <main className="signin">
-      <div>
-        <h1>Take control of your day with</h1>
-        <h1 className="light-green">Taskie</h1>
-      </div>
-      <form method="get" action="/task-list">
+      {authState !== AuthState.Unknown && (
         <div>
-          <span>Email</span>
-          <input type="text" placeholder="your@email.com" />
+          <h1>Take control of your day with</h1>
+          <h1 className="light-green">Taskie</h1>
         </div>
-        <div>
-          <span>Password</span>
-          <input type="password" placeholder="password" />
-        </div>
-        <div className="buttons">
-          <button type="submit">Login</button>
-          <button type="submit">Create</button>
-        </div>
-      </form>
+      )}
+      {authState === AuthState.Authenticated && (
+        <Authenticated
+          userName={userName}
+          onLogout={() => onAuthChange(userName, AuthState.Unauthenticated)}
+        />
+      )}
+      {authState === AuthState.Unauthenticated && (
+        <Unauthenticated
+          userName={userName}
+          onLogin={(loginUserName) => {
+            onAuthChange(loginUserName, AuthState.Authenticated);
+          }}
+        />
+      )}
     </main>
   );
 }

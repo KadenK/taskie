@@ -11,7 +11,23 @@ main.signin {
     margin: 3px;
   }
 
-  form {
+  .authenticated {
+    .username {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 20px;
+      font-size: large;
+      font-weight: 600;
+    }
+    button {
+      font-size: large;
+      padding: 10px;
+      border-radius: 30px;
+    }
+  }
+
+  .account-form {
     display: flex;
     flex-direction: column;
     align-items: center;
