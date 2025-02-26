@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import "./task-list.scss";
 
-export function TaskItem({ task, nestedCount = 0 }) {
+export function SmartTask({ task, inactive = false }) {
   const [taskChecked, setTaskChecked] = useState(task.checked);
-  const taskChildren = task.children || [];
 
   const toggleCheck = async () => {
     setTaskChecked(!taskChecked);
@@ -22,15 +21,10 @@ export function TaskItem({ task, nestedCount = 0 }) {
 
   return (
     <li>
-      <input type="checkbox" checked={taskChecked} onChange={toggleCheck} />
-      <span>{task.name}</span>
-      {taskChildren.length > 0 && (
-        <ul>
-          {taskChildren.map((task) => (
-            <TaskItem key={task.id} task={task} nestedCount={nestedCount + 1} />
-          ))}
-        </ul>
+      {!inactive && (
+        <input type="checkbox" checked={taskChecked} onChange={toggleCheck} />
       )}
+      <span>{task.name}</span>
     </li>
   );
 }

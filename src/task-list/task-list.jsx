@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import "./task-list.scss";
 import { Link } from "react-router-dom";
 import { TaskItem } from "./task-item";
+import { SmartTask } from "./smart-task";
+import { WeatherCondition, RelativeDay } from "../util/util";
 
 export function TaskList() {
   const tasks = [
@@ -39,6 +41,65 @@ export function TaskList() {
     { id: 4, name: "Task 4", checked: true },
   ];
 
+  const smartTasks = [
+    {
+      id: 1,
+      name: "Bring in cushions",
+      checked: false,
+      when: RelativeDay.Tomorrow,
+      condition: WeatherCondition.Thunderstorm,
+    },
+    {
+      id: 2,
+      name: "Clean the pool",
+      checked: false,
+      when: RelativeDay.Today,
+      condition: WeatherCondition.Sunny,
+    },
+    {
+      id: 3,
+      name: "Water the plants",
+      checked: false,
+      when: RelativeDay.Today,
+      condition: WeatherCondition.Cloudy,
+    },
+  ];
+
+  const weatherConditions = {
+    [RelativeDay.Today]: WeatherCondition.Sunny,
+    [RelativeDay.Tomorrow]: WeatherCondition.Thunderstorm,
+    [RelativeDay.Yesterday]: WeatherCondition.Windy,
+  };
+
+  const getActiveSmartTasks = () => {
+    return smartTasks.filter(
+      (task) => task.condition === weatherConditions[task.when]
+    );
+  };
+
+  const tasksWithSmartTasks = useMemo(() => {
+    const activeSmartTasks = getActiveSmartTasks();
+    return [
+      {
+        id: "smart-tasks",
+        name: "Smart Tasks",
+        checked: false,
+        children: activeSmartTasks,
+      },
+      ...tasks,
+    ];
+  }, [tasks, smartTasks, weatherConditions]);
+
+  const getInactiveSmartTasks = () => {
+    return smartTasks.filter(
+      (task) => task.condition !== weatherConditions[task.when]
+    );
+  };
+
+  const inactiveSmartTasks = useMemo(() => {
+    return getInactiveSmartTasks();
+  }, [smartTasks, weatherConditions]);
+
   return (
     <main className="task-list">
       <div className="left-container">
@@ -46,16 +107,22 @@ export function TaskList() {
           <h3>Your List</h3>
         </div>
         <ul className="list">
-          {tasks.map((task) => (
+          {tasksWithSmartTasks.map((task) => (
             <TaskItem key={task.id} task={task} />
           ))}
         </ul>
         <br />
         <h4>Inactive Smart Tasks</h4>
         <ul>
-          <li>
-            <span>Clean the Pool</span>
-          </li>
+          {inactiveSmartTasks.map((task) => (
+            <SmartTask
+              key={task.id}
+              task={task}
+              weatherConditions={weatherConditions}
+              inactive={true}
+            />
+          ))}
+          {inactiveSmartTasks.length === 0 && <li>No inactive smart tasks</li>}
         </ul>
 
         <Link to="/add-task">
