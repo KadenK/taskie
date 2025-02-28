@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSelector } from "reselect";
 import api from "../../app/api";
 import { tasks } from "../../util/dummy";
 
@@ -87,12 +88,16 @@ const tasksSlice = createSlice({
 
 export const { setTasks } = tasksSlice.actions;
 
-export const selectRootTasks = (state) =>
-  state.tasks.tasks.filter((task) => task.parentId === null);
+export const selectRootTasks = createSelector(
+  (state) => state.tasks.tasks,
+  (tasks) => tasks.filter((task) => task.parentId === null)
+);
 
-export const selectTaskChildren = (state, taskOrId) =>
-  state.tasks.tasks.filter(
-    (task) => task.parentId === (taskOrId.id || taskOrId)
-  );
+export const selectTaskChildren = createSelector(
+  (state) => state.tasks.tasks,
+  (_, taskOrId) => taskOrId,
+  (tasks, taskOrId) =>
+    tasks.filter((task) => task.parentId === (taskOrId.id || taskOrId))
+);
 
 export default tasksSlice.reducer;
