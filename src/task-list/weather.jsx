@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import "./task-list.scss";
+import { weatherConditions } from "../util/dummy";
 
 export function Weather() {
   return (
@@ -9,8 +10,8 @@ export function Weather() {
         <div className="weather-item weather-today">
           <h4>Today</h4>
           <img
-            src="/weather/wi-day-sunny.svg"
-            alt="Sunny"
+            src={weatherConditions.today.icon}
+            alt={weatherConditions.today.name}
             width="64px"
             height="64px"
           />
@@ -19,8 +20,8 @@ export function Weather() {
         <div className="weather-item weather-tomorrow">
           <h4>Tomorrow</h4>
           <img
-            src="/weather/wi-day-snow.svg"
-            alt="Snowy"
+            src={weatherConditions.tomorrow.icon}
+            alt={weatherConditions.tomorrow.name}
             width="64px"
             height="64px"
           />

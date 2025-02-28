@@ -1,4 +1,4 @@
-import { RelativeDay, WeatherCondition } from "./util";
+import { WeatherCondition } from "./util";
 
 export const tasks = [
   { id: 1, name: "Task 1", checked: false, parentId: null },
@@ -18,6 +18,6 @@ export const tasks = [
 ];
 
 export const weatherConditions = {
-  [RelativeDay.Today]: WeatherCondition.Sunny,
-  [RelativeDay.Tomorrow]: WeatherCondition.Thunderstorm,
+  today: WeatherCondition.Thunderstorm,
+  tomorrow: WeatherCondition.Snowy,
 };
