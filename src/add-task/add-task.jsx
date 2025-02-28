@@ -49,7 +49,7 @@ export function AddTask() {
     }
   };
 
-  const deleteTask = () => {
+  const handleDeleteTask = () => {
     if (editingTask) {
       dispatch(deleteTask(editingTask));
       navigate("/task-list");
@@ -122,7 +122,7 @@ export function AddTask() {
             {!!editingTask ? "Save Task" : "Create Task"}
           </button>
           {!!editingTask && (
-            <button type="button" onClick={deleteTask}>
+            <button type="button" onClick={handleDeleteTask}>
               Delete Task
             </button>
           )}
