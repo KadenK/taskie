@@ -4,7 +4,7 @@ import api from "../../app/api";
 import { tasks } from "../../util/dummy";
 
 const initialState = {
-  tasks: tasks || [],
+  tasks: JSON.parse(localStorage.getItem("tasks")) || [],
   currentlyEditing: null,
 };
 
@@ -81,6 +81,7 @@ const tasksSlice = createSlice({
   reducers: {
     setTasks(state, action) {
       state.tasks = action.payload;
+      localStorage.setItem("tasks", JSON.stringify(state.tasks));
     },
     setEditingTask(state, action) {
       state.currentlyEditing = action.payload;
@@ -101,18 +102,33 @@ const tasksSlice = createSlice({
         if (action.payload.id === state.currentlyEditing?.id) {
           state.currentlyEditing = null;
         }
+        localStorage.setItem("tasks", JSON.stringify(state.tasks));
       })
       .addCase(addTask.fulfilled, (state, action) => {
         state.tasks.push(action.payload);
+        localStorage.setItem("tasks", JSON.stringify(state.tasks));
       })
       .addCase(deleteTask.fulfilled, (state, action) => {
-        state.tasks = state.tasks.filter((task) => task.id !== action.meta.arg);
+        state.tasks = state.tasks.filter((task) => task.id !== action.payload);
+        let children = state.tasks.filter(
+          (task) => task.parentId === action.payload
+        );
+        while (children.length > 0) {
+          const child = children.pop();
+          state.tasks = state.tasks.filter((task) => task.id !== child.id);
+          children = children.concat(
+            state.tasks.filter((task) => task.parentId === child.id)
+          );
+        }
+        localStorage.setItem("tasks", JSON.stringify(state.tasks));
       })
       .addCase(fetchTasks.fulfilled, (state, action) => {
         state.tasks = action.payload;
+        localStorage.setItem("tasks", JSON.stringify(state.tasks));
       })
       .addCase(joinList.fulfilled, (state, action) => {
         state.tasks = action.payload;
+        localStorage.setItem("tasks", JSON.stringify(state.tasks));
       });
   },
 });

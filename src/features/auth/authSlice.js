@@ -32,6 +32,7 @@ export const logout = createAsyncThunk(
       const data = await api.logout();
       Cookies.remove("username");
       Cookies.remove("authState");
+      localStorage.removeItem("tasks");
       return null;
     } catch (error) {
       return rejectWithValue(error.message);
