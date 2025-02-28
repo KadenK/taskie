@@ -5,6 +5,7 @@ import { tasks } from "../../util/dummy";
 
 const initialState = {
   tasks: tasks || [],
+  currentlyEditing: null,
 };
 
 export const updateTask = createAsyncThunk(
@@ -23,6 +24,11 @@ export const addTask = createAsyncThunk(
   "tasks/addTask",
   async (task, { rejectWithValue }) => {
     try {
+      if (!task.id) {
+        task.id = Math.floor(Math.random() * 1000000);
+        task.checked = false;
+        task.parentId = task.parentId || null;
+      }
       const data = await api.addTask(task);
       return task;
     } catch (error) {
@@ -48,6 +54,19 @@ export const fetchTasks = createAsyncThunk(
   "tasks/fetchTasks",
   async (_, { rejectWithValue }) => {
     try {
+      const data = await api.getTasks();
+      return tasks;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const joinList = createAsyncThunk(
+  "tasks/joinList",
+  async (email, { rejectWithValue }) => {
+    try {
+      await api.joinList(email);
       const data = await api.getTasks();
       return tasks;
     } catch (error) {
@@ -82,11 +101,16 @@ const tasksSlice = createSlice({
       })
       .addCase(fetchTasks.fulfilled, (state, action) => {
         state.tasks = action.payload;
+      })
+      .addCase(joinList.fulfilled, (state, action) => {
+        state.tasks = action.payload;
       });
   },
 });
 
 export const { setTasks } = tasksSlice.actions;
+
+export const selectAllTasks = (state) => state.tasks.tasks;
 
 export const selectRootTasks = createSelector(
   (state) => state.tasks.tasks,
@@ -99,5 +123,7 @@ export const selectTaskChildren = createSelector(
   (tasks, taskOrId) =>
     tasks.filter((task) => task.parentId === (taskOrId.id || taskOrId))
 );
+
+export const selectEditingTask = (state) => state.tasks.currentlyEditing;
 
 export default tasksSlice.reducer;

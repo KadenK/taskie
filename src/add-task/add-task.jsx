@@ -1,37 +1,78 @@
 import React from "react";
 import "./add-task.scss";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  addTask,
+  selectEditingTask,
+  selectAllTasks,
+} from "../features/tasks/tasksSlice";
+import { useNavigate } from "react-router-dom";
 
 export function AddTask() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const tasks = useSelector(selectAllTasks);
+  const editingTask = useSelector(selectEditingTask);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const task = {
+      name: formData.get("name"),
+      checked: false,
+      parentId: formData.get("parent")
+        ? parseInt(formData.get("parent"))
+        : null,
+    };
+    if (formData.get("expires-checkbox") === "on") {
+      task.expiration = formData.get("expiration");
+    }
+    dispatch(addTask(task));
+    navigate("/task-list");
+  };
+
+  const [isExpiresChecked, setIsExpiresChecked] = React.useState(false);
+
+  const handleExpiresChange = (event) => {
+    setIsExpiresChecked(event.target.checked);
+  };
+
   return (
     <main className="add-task">
       <h1>Add a New Task</h1>
-      <form method="get" action="task-list">
+      <form onSubmit={handleSubmit}>
         <div>
           <label>Task Name</label>
-          <input type="text" placeholder="Name" />
+          <input type="text" name="name" placeholder="Name" required />
         </div>
         <div>
           <label>Parent</label>
-          <select id="parents" name="parents">
-            <option value="none">None</option>
-            <option value="cleaning">Cleaning</option>
-            <option value="homework">Homework</option>
-            <option value="shopping">Shopping</option>
+          <select id="parent" name="parent">
+            <option value="">None</option>
+            {tasks.map((task) => (
+              <option key={task.id} value={task.id}>
+                {task.name}
+              </option>
+            ))}
           </select>
         </div>
-        <div className="multi-level">
-          <div>
-            <label>Date</label>
-            <div className="multi-day-container">
-              <label>Multi-day:</label>
-              <input type="checkbox" />
-            </div>
-          </div>
-          <div>
-            <input type="date" />
-            <span>-</span>
-            <input type="date" />
-          </div>
+        <div>
+          <label>Expires</label>
+          <input
+            type="checkbox"
+            className="expires-checkbox"
+            name="checked"
+            id="expires-checkbox"
+            onChange={handleExpiresChange}
+          />
+          {isExpiresChecked && (
+            <input
+              type="date"
+              name="expiration"
+              id="expiration-date"
+              required
+            />
+          )}
         </div>
         <button type="submit">Create Task</button>
       </form>

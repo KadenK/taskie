@@ -47,27 +47,6 @@ main.add-task {
       align-items: center;
       margin: 10px 0;
 
-      &.multi-level {
-        flex-direction: column;
-        margin-bottom: 25px;
-
-        > div {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin: 8px 0 0 0;
-          width: fit-content;
-
-          > label {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin: 5px 20px 0 0;
-            text-align: left;
-            width: auto;
-          }
-        }
-      }
-
       > label {
         font-size: 1.2rem;
         font-weight: bold;
@@ -78,19 +57,11 @@ main.add-task {
       > input {
         height: 1.3rem;
       }
-    }
-  }
 
-  .multi-day-container {
-    margin: 10px;
-    display: inline;
-    margin-left: auto;
-    align-items: center;
-
-    label {
-      font-size: 1rem;
-      font-weight: lighter;
-      margin-right: -5px;
+      .expires-checkbox {
+        margin: 0;
+        margin-right: 5px;
+      }
     }
   }
 }
