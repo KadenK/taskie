@@ -3,9 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 import "./task-list.scss";
 import { Link } from "react-router-dom";
 import { TaskItem } from "./task-item";
+import { Weather } from "./weather";
 import { selectRootTasks } from "../features/tasks/tasksSlice";
 
-export function TaskList({ weatherConditions }) {
+export function TaskList() {
   const tasks = useSelector(selectRootTasks);
   const dispatch = useDispatch();
 
@@ -53,32 +54,7 @@ export function TaskList({ weatherConditions }) {
           />
           <button type="button">Share</button>
         </div>
-
-        <div className="weather-container">
-          <h3 className="weather-title">Weather</h3>
-          <div className="weather-items">
-            <div className="weather-item weather-today">
-              <h4>Today</h4>
-              <img
-                src="/weather/wi-day-sunny.svg"
-                alt="Sunny"
-                width="64px"
-                height="64px"
-              />
-              <span>85°F</span>
-            </div>
-            <div className="weather-item weather-tomorrow">
-              <h4>Tomorrow</h4>
-              <img
-                src="/weather/wi-day-snow.svg"
-                alt="Snowy"
-                width="64px"
-                height="64px"
-              />
-              <span>2°F</span>
-            </div>
-          </div>
-        </div>
+        <Weather />
       </div>
     </main>
   );

@@ -5,7 +5,6 @@ import { Login } from "./login/login";
 import { AuthState } from "./login/authState";
 import { TaskList } from "./task-list/task-list";
 import { AddTask } from "./add-task/add-task";
-import { weatherConditions } from "./util/dummy";
 
 export default function App() {
   const [userName, setUserName] = React.useState(
@@ -79,10 +78,7 @@ export default function App() {
             }
             exact
           />
-          <Route
-            path="/task-list"
-            element={<TaskList weatherConditions={weatherConditions} />}
-          />
+          <Route path="/task-list" element={<TaskList />} />
           <Route path="/add-task" element={<AddTask />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
