@@ -20,7 +20,7 @@ export function Collaborators() {
           isActive: Math.random() < 0.5,
         }))
       );
-    }, 30000);
+    }, 10000);
 
     return () => clearInterval(intervalId);
   }, []);
