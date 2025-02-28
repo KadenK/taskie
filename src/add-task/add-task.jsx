@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   addTask,
   updateTask,
+  deleteTask,
   selectEditingTask,
   selectAllTasks,
 } from "../features/tasks/tasksSlice";
@@ -44,6 +45,13 @@ export function AddTask() {
         task.expiration = formData.get("expiration");
       }
       dispatch(addTask(task));
+      navigate("/task-list");
+    }
+  };
+
+  const deleteTask = () => {
+    if (editingTask) {
+      dispatch(deleteTask(editingTask));
       navigate("/task-list");
     }
   };
@@ -103,9 +111,16 @@ export function AddTask() {
             />
           )}
         </div>
-        <button type="submit">
-          {!!editingTask ? "Save Task" : "Create Task"}
-        </button>
+        <div className="button-container">
+          <button type="submit">
+            {!!editingTask ? "Save Task" : "Create Task"}
+          </button>
+          {!!editingTask && (
+            <button type="button" onClick={deleteTask}>
+              Delete Task
+            </button>
+          )}
+        </div>
       </form>
     </main>
   );

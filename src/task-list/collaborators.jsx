@@ -26,7 +26,7 @@ export function Collaborators() {
           <li key={index}>
             <span>{collaborator.name}</span>
             {collaborator.name === username ? <span>(You)</span> : null}
-            {collaborator.active ? <span>(Active)</span> : null}
+            {collaborator.isActive ? <span>(Active)</span> : null}
           </li>
         ))}
       </ul>

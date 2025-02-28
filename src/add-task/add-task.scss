@@ -62,6 +62,14 @@ main.add-task {
         margin: 0;
         margin-right: 5px;
       }
+
+      .button-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 5px;
+        
+      }
     }
   }
 }
