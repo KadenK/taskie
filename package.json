@@ -1,7 +1,7 @@
 {
   "name": "taskie",
   "version": "1.0.0",
-  "description": "Taskie is a powerful task tracking application that allows you to not only create and track various tasks, but also automate task creation based on real-world factors such as weather! Complete with categories, tasks, and subtasks, its easy to keep track of everything that you need to complete in a day. Invite a friend or spouse to join your task list. Combine this with our powerful smart features like weather-based tasks and you'll never forget to cover the cushions before a rainy day again!",
+  "description": "Taskie is a powerful task tracking application that allows you to create and track various tasks. Complete with categories, tasks, and subtasks, its easy to keep track of everything that you need to complete in a day. Invite a friend or spouse to join your task list. As you browse your tasks, get a quick view of the weather.",
   "main": "index.js",
   "scripts": {
     "dev": "vite",

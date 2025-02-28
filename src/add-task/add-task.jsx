@@ -33,27 +33,6 @@ export function AddTask() {
             <input type="date" />
           </div>
         </div>
-        <div className="multi-level">
-          <div>
-            <label>Smart Condition: </label>
-            <input type="checkbox" />
-          </div>
-          <div className="smart-condition-container">
-            <span>If</span>
-            <select id="smart-day" name="smart-day">
-              <option value="today">today</option>
-              <option value="tomorrow">tomorrow</option>
-            </select>
-            <span>is</span>
-            <select id="smart-weather" name="smart-weather">
-              <option value="sunny">sunny</option>
-              <option value="rainy">rainy</option>
-              <option value="snowy">snowy</option>
-              <option value="freezing">freezing</option>
-              <option value="windy">windy</option>
-            </select>
-          </div>
-        </div>
         <button type="submit">Create Task</button>
       </form>
     </main>

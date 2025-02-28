@@ -10,5 +10,4 @@ export const WeatherCondition = Object.freeze({
 export const RelativeDay = Object.freeze({
   Today: "today",
   Tomorrow: "tomorrow",
-  Yesterday: "yesterday",
 });

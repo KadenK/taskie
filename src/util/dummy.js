@@ -35,32 +35,7 @@ export const tasks = [
   { id: 4, name: "Task 4", checked: true },
 ];
 
-export const smartTasks = [
-  {
-    id: 1,
-    name: "Bring in cushions",
-    checked: false,
-    when: RelativeDay.Tomorrow,
-    condition: WeatherCondition.Thunderstorm,
-  },
-  {
-    id: 2,
-    name: "Clean the pool",
-    checked: false,
-    when: RelativeDay.Today,
-    condition: WeatherCondition.Sunny,
-  },
-  {
-    id: 3,
-    name: "Water the plants",
-    checked: false,
-    when: RelativeDay.Today,
-    condition: WeatherCondition.Cloudy,
-  },
-];
-
 export const weatherConditions = {
   [RelativeDay.Today]: WeatherCondition.Sunny,
   [RelativeDay.Tomorrow]: WeatherCondition.Thunderstorm,
-  [RelativeDay.Yesterday]: WeatherCondition.Windy,
 };

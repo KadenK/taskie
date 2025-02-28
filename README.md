@@ -1,6 +1,6 @@
 # Taskie - Smart tasks for your day
 
-Taskie is a powerful task tracking application that allows you to not only create and track various tasks, but also automate task creation based on real-world factors such as weather! Complete with categories, tasks, and subtasks, its easy to keep track of everything that you need to complete in a day. Invite a friend or spouse to join your task list. Combine this with our powerful smart features like weather-based tasks and you'll never forget to cover the cushions before a rainy day again!
+Taskie is a powerful task tracking application that allows you to create and track various tasks. Complete with categories, tasks, and subtasks, its easy to keep track of everything that you need to complete in a day. Invite a friend or spouse to join your task list. As you browse your tasks, get a quick view of the weather.
 
 ## 🚀 Specification Deliverable
 
@@ -14,7 +14,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 ### Elevator pitch
 
-Taskie is a powerful task tracking application that allows you to not only create and track various tasks, but also automate task creation based on real-world factors such as weather! Complete with categories, tasks, and subtasks, its easy to keep track of everything that you need to complete in a day. Invite a friend or spouse to join your task list. Combine this with our powerful smart features like weather-based tasks and you'll never forget to cover the cushions before a rainy day again!
+Taskie is a powerful task tracking application that allows you to create and track various tasks. Complete with categories, tasks, and subtasks, its easy to keep track of everything that you need to complete in a day. Invite a friend or spouse to join your task list. As you browse your tasks, get a quick view of the weather.
 
 ### Design
 
@@ -26,8 +26,6 @@ Taskie is a powerful task tracking application that allows you to not only creat
 - Login to save your list
 - Add, remove, or edit tasks
 - Nested tasks
-- Tasks can completed over more than one day
-- Smart tasks that automatically apply depending on weather conditions
 - Share your task list with others
 - Convenient weather display for task planning
 

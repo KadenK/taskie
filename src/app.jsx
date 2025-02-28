@@ -5,7 +5,7 @@ import { Login } from "./login/login";
 import { AuthState } from "./login/authState";
 import { TaskList } from "./task-list/task-list";
 import { AddTask } from "./add-task/add-task";
-import { tasks, smartTasks, weatherConditions } from "./util/dummy";
+import { tasks, weatherConditions } from "./util/dummy";
 
 export default function App() {
   const [userName, setUserName] = React.useState(
@@ -82,11 +82,7 @@ export default function App() {
           <Route
             path="/task-list"
             element={
-              <TaskList
-                tasks={tasks}
-                smartTasks={smartTasks}
-                weatherConditions={weatherConditions}
-              />
+              <TaskList tasks={tasks} weatherConditions={weatherConditions} />
             }
           />
           <Route path="/add-task" element={<AddTask />} />
