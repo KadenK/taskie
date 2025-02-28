@@ -1,9 +1,14 @@
-import React, { useMemo } from "react";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import "./task-list.scss";
 import { Link } from "react-router-dom";
 import { TaskItem } from "./task-item";
+import { selectRootTasks } from "../features/tasks/tasksSlice";
 
-export function TaskList({ tasks, weatherConditions }) {
+export function TaskList({ weatherConditions }) {
+  const tasks = useSelector(selectRootTasks);
+  const dispatch = useDispatch();
+
   return (
     <main className="task-list">
       <div className="left-container">

@@ -1,33 +1,25 @@
 import React, { useState } from "react";
 import "./task-list.scss";
+import { useSelector, useDispatch } from "react-redux";
+import { selectTaskChildren, updateTask } from "../features/tasks/tasksSlice";
 
-export function TaskItem({ task, nestedCount = 0 }) {
-  const [taskChecked, setTaskChecked] = useState(task.checked);
-  const taskChildren = task.children || [];
+export function TaskItem({ task }) {
+  const children = useSelector((state) => selectTaskChildren(state, task));
+  const dispatch = useDispatch();
 
   const toggleCheck = async () => {
-    setTaskChecked(!taskChecked);
-    try {
-      // await fetch(`/api/tasks/${task.id}/toggle`, {
-      //     method: 'POST',
-      //     headers: {
-      //         'Content-Type': 'application/json',
-      //     },
-      //     body: JSON.stringify({ checked: !taskChecked }),
-      // });
-    } catch (error) {
-      console.error("Error updating task:", error);
-    }
+    const updatedTask = { ...task, checked: !task.checked };
+    dispatch(updateTask(updatedTask));
   };
 
   return (
     <li>
-      <input type="checkbox" checked={taskChecked} onChange={toggleCheck} />
+      <input type="checkbox" checked={task.checked} onChange={toggleCheck} />
       <span>{task.name}</span>
-      {taskChildren.length > 0 && (
+      {children.length > 0 && (
         <ul>
-          {taskChildren.map((task) => (
-            <TaskItem key={task.id} task={task} nestedCount={nestedCount + 1} />
+          {children.map((task) => (
+            <TaskItem key={task.id} task={task} />
           ))}
         </ul>
       )}
