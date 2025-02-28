@@ -86,8 +86,8 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **All functionality implemented or mocked out** - I did not complete this part of the deliverable.
-- [ ] **Hooks** - I did not complete this part of the deliverable.
+- [x] **All functionality implemented or mocked out** - I have created various React components, such as task-list, task-item, weather, collaborators, etc. These implement or mock every functionality the app has. I reactively generate HTML elements and React components to conditionally change text, available buttons, and the number of list elements.
+- [x] **Hooks** - I have used useState and useEffect throughout my code, particularly for temporary local states. One difference in my project from many others is that I added in a state management store using Redux Toolkit. This results in me actually using less useState and useEffect, but the selectors and reducers used through Redux are functionally very similar to useState and useEffect and provide hooks to dynamically manage my application.
 
 ## 🚀 Service deliverable
 
