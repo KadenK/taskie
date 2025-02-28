@@ -20,6 +20,11 @@ const api = {
   updateTask: (task) => sendRequest(`/api/tasks/${task.id}`, "PUT", task),
   deleteTask: (taskId) => sendRequest(`/api/tasks/${taskId}`, "DELETE"),
   getTask: (taskId) => sendRequest(`/api/tasks/${taskId}`, "GET"),
+  login: (username, password) =>
+    sendRequest("/api/login", "POST", { username, password }),
+  logout: () => sendRequest("/api/logout", "POST"),
+  createUser: (username, password) =>
+    sendRequest("/api/users", "POST", { username, password }),
 };
 
 export default api;

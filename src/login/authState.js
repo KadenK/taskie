@@ -1,9 +1,5 @@
-export class AuthState {
-  static Unknown = new AuthState('unknown');
-  static Authenticated = new AuthState('authenticated');
-  static Unauthenticated = new AuthState('unauthenticated');
-
-  constructor(name) {
-    this.name = name;
-  }
-}
+export const AuthState = Object.freeze({
+  Unknown: "unknown",
+  Authenticated: "authenticated",
+  Unauthenticated: "unauthenticated",
+});

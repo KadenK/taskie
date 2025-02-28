@@ -1,30 +1,27 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../features/auth/authSlice";
 
-export function Authenticated(props) {
+export function Authenticated() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const username = useSelector((state) => state.auth.username);
 
-  function logout() {
-    fetch(`/api/auth/logout`, {
-      method: "delete",
-    })
-      .catch(() => {
-        // Logout failed. Assuming offline
-      })
-      .finally(() => {
-        localStorage.removeItem("userName");
-        props.onLogout();
-      });
+  function handleLogout() {
+    dispatch(logout()).finally(() => {
+      localStorage.removeItem("username");
+    });
   }
 
   return (
     <div className="authenticated">
-      <div className="username">{props.userName}</div>
+      <div className="username">{username}</div>
       <div className="buttons">
         <button type="submit" onClick={() => navigate("/task-list")}>
           My Tasks
         </button>
-        <button type="submit" onClick={() => logout()}>
+        <button type="submit" onClick={() => handleLogout()}>
           Logout
         </button>
       </div>

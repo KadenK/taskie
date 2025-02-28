@@ -57,13 +57,18 @@ main.task-list {
     padding: 40px;
   }
 
-  .share-input {
-    border: none;
-    border-bottom: 1px solid var(--light-green);
-    background: none;
-    outline: none;
-    padding: 5px 0;
-    color: white;
+  .collaborators-container {
+    li>span {
+      margin: 0 5px;
+    }
+    .share-input {
+      border: none;
+      border-bottom: 1px solid var(--light-green);
+      background: none;
+      outline: none;
+      padding: 5px 0;
+      color: white;
+    }
   }
 
   .weather-container {

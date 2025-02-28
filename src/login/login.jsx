@@ -1,10 +1,13 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import "./login.scss";
 import { Unauthenticated } from "./unauthenticated";
 import { Authenticated } from "./authenticated";
 import { AuthState } from "./authState";
 
-export function Login({ userName, authState, onAuthChange }) {
+export function Login() {
+  const authState = useSelector((state) => state.auth.authState);
+
   return (
     <main className="signin">
       {authState !== AuthState.Unknown && (
@@ -13,20 +16,8 @@ export function Login({ userName, authState, onAuthChange }) {
           <h1 className="light-green">Taskie</h1>
         </div>
       )}
-      {authState === AuthState.Authenticated && (
-        <Authenticated
-          userName={userName}
-          onLogout={() => onAuthChange(userName, AuthState.Unauthenticated)}
-        />
-      )}
-      {authState === AuthState.Unauthenticated && (
-        <Unauthenticated
-          userName={userName}
-          onLogin={(loginUserName) => {
-            onAuthChange(loginUserName, AuthState.Authenticated);
-          }}
-        />
-      )}
+      {authState === AuthState.Authenticated && <Authenticated />}
+      {authState === AuthState.Unauthenticated && <Unauthenticated />}
     </main>
   );
 }

@@ -21,3 +21,10 @@ export const weatherConditions = {
   today: { condition: WeatherCondition.Thunderstorm, temperature: 85 },
   tomorrow: { condition: WeatherCondition.Snowy, temperature: 2 },
 };
+
+export const collaborators = [
+  { name: "Alice", isActive: true },
+  { name: "Bob", isActive: false },
+  { name: "Charlie", isActive: true },
+  { name: "Diana", isActive: false },
+];
