@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./add-task.scss";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -27,7 +27,7 @@ export function AddTask() {
           ? parseInt(formData.get("parent"))
           : null,
       };
-      if (formData.get("expires-checkbox") === "on") {
+      if (expiresChecked) {
         updatedTask.expiration = formData.get("expiration");
       }
       dispatch(updateTask(updatedTask));
@@ -41,7 +41,7 @@ export function AddTask() {
           ? parseInt(formData.get("parent"))
           : null,
       };
-      if (formData.get("expires-checkbox") === "on") {
+      if (expiresChecked) {
         task.expiration = formData.get("expiration");
       }
       dispatch(addTask(task));
@@ -56,10 +56,16 @@ export function AddTask() {
     }
   };
 
-  const [isExpiresChecked, setIsExpiresChecked] = React.useState(false);
+  const [expiresChecked, setExpiresChecked] = useState(false);
+
+  useEffect(() => {
+    if (editingTask?.expiration) {
+      setExpiresChecked(true);
+    }
+  }, [editingTask]);
 
   const handleExpiresChange = (event) => {
-    setIsExpiresChecked(event.target.checked);
+    setExpiresChecked(event.target.checked);
   };
 
   return (
@@ -101,7 +107,7 @@ export function AddTask() {
             defaultChecked={!!editingTask?.expiration}
             onChange={handleExpiresChange}
           />
-          {(isExpiresChecked || editingTask?.expiration) && (
+          {expiresChecked && (
             <input
               type="date"
               name="expiration"
