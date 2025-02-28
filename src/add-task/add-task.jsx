@@ -3,6 +3,7 @@ import "./add-task.scss";
 import { useSelector, useDispatch } from "react-redux";
 import {
   addTask,
+  updateTask,
   selectEditingTask,
   selectAllTasks,
 } from "../features/tasks/tasksSlice";
@@ -17,18 +18,34 @@ export function AddTask() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
-    const task = {
-      name: formData.get("name"),
-      checked: false,
-      parentId: formData.get("parent")
-        ? parseInt(formData.get("parent"))
-        : null,
-    };
-    if (formData.get("expires-checkbox") === "on") {
-      task.expiration = formData.get("expiration");
+    if (editingTask) {
+      const updatedTask = {
+        ...editingTask,
+        name: formData.get("name"),
+        parentId: formData.get("parent")
+          ? parseInt(formData.get("parent"))
+          : null,
+      };
+      if (formData.get("expires-checkbox") === "on") {
+        updatedTask.expiration = formData.get("expiration");
+      }
+      dispatch(updateTask(updatedTask));
+      navigate("/task-list");
+      return;
+    } else {
+      const task = {
+        name: formData.get("name"),
+        checked: false,
+        parentId: formData.get("parent")
+          ? parseInt(formData.get("parent"))
+          : null,
+      };
+      if (formData.get("expires-checkbox") === "on") {
+        task.expiration = formData.get("expiration");
+      }
+      dispatch(addTask(task));
+      navigate("/task-list");
     }
-    dispatch(addTask(task));
-    navigate("/task-list");
   };
 
   const [isExpiresChecked, setIsExpiresChecked] = React.useState(false);
@@ -39,15 +56,25 @@ export function AddTask() {
 
   return (
     <main className="add-task">
-      <h1>Add a New Task</h1>
+      <h1>{!!editingTask ? "Edit Task" : "Add a New Task"}</h1>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Task Name</label>
-          <input type="text" name="name" placeholder="Name" required />
+          <input
+            type="text"
+            name="name"
+            placeholder="Name"
+            defaultValue={editingTask?.name}
+            required
+          />
         </div>
         <div>
           <label>Parent</label>
-          <select id="parent" name="parent">
+          <select
+            id="parent"
+            name="parent"
+            defaultValue={editingTask?.parentId}
+          >
             <option value="">None</option>
             {tasks.map((task) => (
               <option key={task.id} value={task.id}>
@@ -63,18 +90,22 @@ export function AddTask() {
             className="expires-checkbox"
             name="checked"
             id="expires-checkbox"
+            defaultChecked={!!editingTask?.expiration}
             onChange={handleExpiresChange}
           />
-          {isExpiresChecked && (
+          {(isExpiresChecked || editingTask?.expiration) && (
             <input
               type="date"
               name="expiration"
               id="expiration-date"
+              defaultValue={editingTask?.expiration}
               required
             />
           )}
         </div>
-        <button type="submit">Create Task</button>
+        <button type="submit">
+          {!!editingTask ? "Save Task" : "Create Task"}
+        </button>
       </form>
     </main>
   );

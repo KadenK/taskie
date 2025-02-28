@@ -6,11 +6,13 @@ import { Login } from "./login/login";
 import { AuthState } from "./login/authState";
 import { TaskList } from "./task-list/task-list";
 import { AddTask } from "./add-task/add-task";
+import { selectEditingTask } from "./features/tasks/tasksSlice";
 
 export default function App() {
   const dispatch = useDispatch();
   const username = useSelector((state) => state.auth.username);
   const authState = useSelector((state) => state.auth.authState);
+  const editingTask = useSelector(selectEditingTask);
 
   return (
     <BrowserRouter>
@@ -51,7 +53,7 @@ export default function App() {
                       to="/add-task"
                       className={({ isActive }) => (isActive ? "selected" : "")}
                     >
-                      Add a Task
+                      {!!editingTask ? "Edit Task" : "Add a Task"}
                     </NavLink>
                   </li>
                 </>

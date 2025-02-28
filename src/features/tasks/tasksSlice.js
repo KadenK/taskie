@@ -82,6 +82,12 @@ const tasksSlice = createSlice({
     setTasks(state, action) {
       state.tasks = action.payload;
     },
+    setEditingTask(state, action) {
+      state.currentlyEditing = action.payload;
+    },
+    clearEditingTask(state) {
+      state.currentlyEditing = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -91,6 +97,9 @@ const tasksSlice = createSlice({
         );
         if (index !== -1) {
           state.tasks[index] = action.payload;
+        }
+        if (action.payload.id === state.currentlyEditing?.id) {
+          state.currentlyEditing = null;
         }
       })
       .addCase(addTask.fulfilled, (state, action) => {
@@ -108,7 +117,8 @@ const tasksSlice = createSlice({
   },
 });
 
-export const { setTasks } = tasksSlice.actions;
+export const { setTasks, setEditingTask, clearEditingTask } =
+  tasksSlice.actions;
 
 export const selectAllTasks = (state) => state.tasks.tasks;
 
