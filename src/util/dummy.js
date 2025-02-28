@@ -18,6 +18,6 @@ export const tasks = [
 ];
 
 export const weatherConditions = {
-  today: WeatherCondition.Thunderstorm,
-  tomorrow: WeatherCondition.Snowy,
+  today: { condition: WeatherCondition.Thunderstorm, temperature: 85 },
+  tomorrow: { condition: WeatherCondition.Snowy, temperature: 2 },
 };
