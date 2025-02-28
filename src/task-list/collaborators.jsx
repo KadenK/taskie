@@ -1,13 +1,29 @@
 import React, { useState } from "react";
 import "./task-list.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { collaborators } from "../util/dummy";
+import { collaborators as defaultCollaborators } from "../util/dummy";
 import { joinList } from "../features/tasks/tasksSlice";
 
 export function Collaborators() {
   const [email, setEmail] = useState("");
   const username = useSelector((state) => state.auth.username);
   const dispatch = useDispatch();
+
+  const [collaborators, setCollaborators] = useState(defaultCollaborators);
+
+  // Simulate the collaboration websocket
+  React.useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCollaborators((prevCollaborators) =>
+        prevCollaborators.map((collaborator) => ({
+          ...collaborator,
+          isActive: Math.random() < 0.5,
+        }))
+      );
+    }, 30000);
+
+    return () => clearInterval(intervalId);
+  }, []);
 
   const handleJoin = () => {
     dispatch(joinList(email));
