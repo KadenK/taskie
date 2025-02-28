@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import "./task-list.scss";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { collaborators } from "../util/dummy";
+import { joinList } from "../features/tasks/tasksSlice";
 
 export function Collaborators() {
+  const [email, setEmail] = useState("");
   const username = useSelector((state) => state.auth.username);
+  const dispatch = useDispatch();
+
+  const handleJoin = () => {
+    dispatch(joinList(email));
+    setEmail("");
+  };
+
   return (
     <div className="collaborators-container">
       <h3>Collaborators</h3>
@@ -26,8 +35,12 @@ export function Collaborators() {
         className="share-input"
         type="email"
         placeholder="friend@email.com"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
       />
-      <button type="button">Join</button>
+      <button type="button" onClick={handleJoin}>
+        Join
+      </button>
     </div>
   );
 }
