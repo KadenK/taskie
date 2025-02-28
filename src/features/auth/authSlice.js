@@ -1,10 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../../app/api";
 import { AuthState } from "../../login/authState";
+import Cookies from "js-cookie";
 
 const initialState = {
-  username: null,
-  authState: AuthState.Unauthenticated,
+  username: Cookies.get("username") || null,
+  authState:
+    Cookies.get("authState") === "authenticated"
+      ? AuthState.Authenticated
+      : AuthState.Unauthenticated,
 };
 
 export const login = createAsyncThunk(
@@ -12,6 +16,8 @@ export const login = createAsyncThunk(
   async ({ username, password }, { rejectWithValue }) => {
     try {
       const data = await api.login(username, password);
+      Cookies.set("username", username);
+      Cookies.set("authState", AuthState.Authenticated);
       return username;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -24,6 +30,8 @@ export const logout = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const data = await api.logout();
+      Cookies.remove("username");
+      Cookies.remove("authState");
       return null;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -36,6 +44,8 @@ export const createUser = createAsyncThunk(
   async ({ username, password }, { rejectWithValue }) => {
     try {
       const data = await api.createUser(username, password);
+      Cookies.set("username", username);
+      Cookies.set("authState", AuthState.Authenticated);
       return username;
     } catch (error) {
       return rejectWithValue(error.message);
