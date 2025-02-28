@@ -14,7 +14,7 @@ export function TaskList() {
   return (
     <main className="task-list">
       <div className="left-container">
-        <div className="day-selector">
+        <div className="list-header">
           <h3>Your List</h3>
         </div>
         <ul className="list">
@@ -22,9 +22,15 @@ export function TaskList() {
             <TaskItem key={task.id} task={task} />
           ))}
         </ul>
+        {tasks.length === 0 && (
+          <div className="empty-list">
+            <p>Your task list is empty.</p>
+            <p>Click the button below to add your first task!</p>
+          </div>
+        )}
         <br />
 
-        <Link to="/add-task">
+        <Link to="/add-task" className="add-task-link">
           <button className="add-task" type="button">
             Add Task
           </button>

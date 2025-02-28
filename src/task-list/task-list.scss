@@ -6,44 +6,58 @@ main.task-list {
   justify-content: space-evenly;
 
   .left-container {
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 40px;
     width: fit-content;
-  }
 
-  .day-selector {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
+    .list-header {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
 
-    input {
-      padding: 5px;
-    }
-
-    h3 {
-      margin: 0 10px;
-    }
-  }
-
-  .list {
-    li {
-      list-style: none;
-      margin: 10px -10px;
-
-      input {
+      h3 {
         margin: 0 10px;
-        border-radius: 50%;
-        border: none;
-        accent-color: var(--light-green);
+        text-align: center;
       }
+    }
 
-      span:hover {
-        cursor: pointer;
-        color: var(--light-green);
+    .list {
+      padding: 0;
+
+      li {
+        list-style: none;
+        margin: 10px -10px;
+
+        input {
+          margin: 0 10px;
+          border-radius: 50%;
+          border: none;
+          accent-color: var(--light-green);
+        }
+
+        span:hover {
+          cursor: pointer;
+          color: var(--light-green);
+        }
+      }
+    }
+
+    .empty-list {
+      p {
+        text-align: center;
+      }
+    }
+
+    .add-task-link {
+      align-self: center;
+      margin: 0 auto;
+      button.add-task {
+        align-self: center;
       }
     }
   }
@@ -58,7 +72,7 @@ main.task-list {
   }
 
   .collaborators-container {
-    li>span {
+    li > span {
       margin: 0 5px;
     }
     .share-input {
