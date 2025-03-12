@@ -1,17 +1,16 @@
 const sendRequest = (url, method, data) => {
-  // return fetch(url, {
-  //   method,
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify(data),
-  // }).then((response) => {
-  //   if (!response.ok) {
-  //     throw new Error("API Call failed: " + response.statusText);
-  //   }
-  //   return response.json();
-  // });
-  return Promise.resolve(null);
+  return fetch(url, {
+    method,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: data ? JSON.stringify(data) : undefined,
+  }).then((response) => {
+    if (!response.ok) {
+      throw new Error("API Call Error: " + response.statusText);
+    }
+    return response.json();
+  });
 };
 
 const api = {
@@ -21,10 +20,11 @@ const api = {
   deleteTask: (taskId) => sendRequest(`/api/tasks/${taskId}`, "DELETE"),
   getTask: (taskId) => sendRequest(`/api/tasks/${taskId}`, "GET"),
   login: (username, password) =>
-    sendRequest("/api/login", "POST", { username, password }),
-  logout: () => sendRequest("/api/logout", "POST"),
+    sendRequest("/api/auth/login", "POST", { username, password }),
+  logout: () => sendRequest("/api/auth/logout", "DELETE"),
   createUser: (username, password) =>
-    sendRequest("/api/users", "POST", { username, password }),
+    sendRequest("/api/auth/create", "POST", { username, password }),
+  joinList: (listName) => sendRequest("/api/lists/join", "POST", { listName }),
 };
 
 export default api;

@@ -1,10 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
 import api from "../../app/api";
-import { tasks } from "../../util/dummy";
 
 const initialState = {
-  tasks: JSON.parse(localStorage.getItem("tasks")) || [],
+  tasks: [],
   currentlyEditing: null,
 };
 
@@ -13,7 +12,7 @@ export const updateTask = createAsyncThunk(
   async (task, { rejectWithValue }) => {
     try {
       const data = await api.updateTask(task);
-      return task;
+      return data;
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -24,13 +23,8 @@ export const addTask = createAsyncThunk(
   "tasks/addTask",
   async (task, { rejectWithValue }) => {
     try {
-      if (!task.id) {
-        task.id = Math.floor(Math.random() * 1000000);
-        task.checked = false;
-        task.parentId = task.parentId || null;
-      }
       const data = await api.addTask(task);
-      return task;
+      return data;
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -42,7 +36,7 @@ export const deleteTask = createAsyncThunk(
   async (taskOrId, { rejectWithValue }) => {
     try {
       const taskId = taskOrId.id || taskOrId;
-      const data = await api.deleteTask(taskId);
+      await api.deleteTask(taskId);
       return taskId;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -55,7 +49,7 @@ export const fetchTasks = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const data = await api.getTasks();
-      return tasks;
+      return data;
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -64,11 +58,10 @@ export const fetchTasks = createAsyncThunk(
 
 export const joinList = createAsyncThunk(
   "tasks/joinList",
-  async (email, { rejectWithValue }) => {
+  async (listName, { rejectWithValue }) => {
     try {
-      await api.joinList(email);
-      const data = await api.getTasks();
-      return tasks;
+      const data = await api.joinList(listName);
+      return data.tasks || [];
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -81,7 +74,6 @@ const tasksSlice = createSlice({
   reducers: {
     setTasks(state, action) {
       state.tasks = action.payload;
-      localStorage.setItem("tasks", JSON.stringify(state.tasks));
     },
     setEditingTask(state, action) {
       state.currentlyEditing = action.payload;
@@ -102,11 +94,9 @@ const tasksSlice = createSlice({
         if (action.payload.id === state.currentlyEditing?.id) {
           state.currentlyEditing = null;
         }
-        localStorage.setItem("tasks", JSON.stringify(state.tasks));
       })
       .addCase(addTask.fulfilled, (state, action) => {
         state.tasks.push(action.payload);
-        localStorage.setItem("tasks", JSON.stringify(state.tasks));
       })
       .addCase(deleteTask.fulfilled, (state, action) => {
         state.tasks = state.tasks.filter((task) => task.id !== action.payload);
@@ -120,15 +110,12 @@ const tasksSlice = createSlice({
             state.tasks.filter((task) => task.parentId === child.id)
           );
         }
-        localStorage.setItem("tasks", JSON.stringify(state.tasks));
       })
       .addCase(fetchTasks.fulfilled, (state, action) => {
         state.tasks = action.payload;
-        localStorage.setItem("tasks", JSON.stringify(state.tasks));
       })
       .addCase(joinList.fulfilled, (state, action) => {
         state.tasks = action.payload;
-        localStorage.setItem("tasks", JSON.stringify(state.tasks));
       });
   },
 });

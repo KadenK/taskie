@@ -18,7 +18,7 @@ export const login = createAsyncThunk(
       const data = await api.login(username, password);
       Cookies.set("username", username);
       Cookies.set("authState", AuthState.Authenticated);
-      return username;
+      return data;
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -47,7 +47,7 @@ export const createUser = createAsyncThunk(
       const data = await api.createUser(username, password);
       Cookies.set("username", username);
       Cookies.set("authState", AuthState.Authenticated);
-      return username;
+      return data;
     } catch (error) {
       return rejectWithValue(error.message);
     }
