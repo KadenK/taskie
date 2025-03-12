@@ -23,9 +23,7 @@ export function AddTask() {
       const updatedTask = {
         ...editingTask,
         name: formData.get("name"),
-        parentId: formData.get("parent")
-          ? parseInt(formData.get("parent"))
-          : null,
+        parentId: formData.get("parent") ? formData.get("parent") : null,
       };
       if (expiresChecked) {
         updatedTask.expiration = formData.get("expiration");
@@ -37,9 +35,7 @@ export function AddTask() {
       const task = {
         name: formData.get("name"),
         checked: false,
-        parentId: formData.get("parent")
-          ? parseInt(formData.get("parent"))
-          : null,
+        parentId: formData.get("parent") ? formData.get("parent") : null,
       };
       if (expiresChecked) {
         task.expiration = formData.get("expiration");

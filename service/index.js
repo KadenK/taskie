@@ -34,10 +34,7 @@ apiRouter.post("/auth/create", async (req, res) => {
     const username = req.body.username;
     // Create a default list for the new user
     const defaultList = {
-      id: uuid.v4(),
       name: username + "'s List",
-      owner: username,
-      members: [username],
       tasks: [],
     };
     lists.push(defaultList);
@@ -95,7 +92,7 @@ apiRouter.get("/tasks", verifyAuth, async (req, res) => {
   const user = await findUser("token", req.cookies[authCookieName]);
   const list = lists.find((l) => l.name === user.subscribedList);
 
-  if (list && list.members.includes(user.username)) {
+  if (list) {
     res.send(list.tasks || []);
   } else {
     res.send([]);
@@ -108,7 +105,7 @@ apiRouter.get("/tasks/:id", verifyAuth, async (req, res) => {
   const user = await findUser("token", req.cookies[authCookieName]);
   const list = lists.find((l) => l.name === user.subscribedList);
 
-  if (!list || !list.members.includes(user.username)) {
+  if (!list) {
     res.status(404).send({ msg: "List not found or unauthorized" });
     return;
   }
@@ -126,7 +123,7 @@ apiRouter.post("/tasks", verifyAuth, async (req, res) => {
   const user = await findUser("token", req.cookies[authCookieName]);
   const list = lists.find((l) => l.name === user.subscribedList);
 
-  if (!list || !list.members.includes(user.username)) {
+  if (!list) {
     res.status(404).send({ msg: "List not found or unauthorized" });
     return;
   }
@@ -151,7 +148,7 @@ apiRouter.put("/tasks/:id", verifyAuth, async (req, res) => {
   const user = await findUser("token", req.cookies[authCookieName]);
   const list = lists.find((l) => l.name === user.subscribedList);
 
-  if (!list || !list.members.includes(user.username)) {
+  if (!list) {
     res.status(404).send({ msg: "List not found or unauthorized" });
     return;
   }
@@ -178,7 +175,7 @@ apiRouter.delete("/tasks/:id", verifyAuth, async (req, res) => {
   const user = await findUser("token", req.cookies[authCookieName]);
   const list = lists.find((l) => l.name === user.subscribedList);
 
-  if (!list || !list.members.includes(user.username)) {
+  if (!list) {
     res.status(404).send({ msg: "List not found or unauthorized" });
     return;
   }
@@ -197,23 +194,15 @@ apiRouter.post("/lists/join", verifyAuth, async (req, res) => {
   const user = await findUser("token", req.cookies[authCookieName]);
   const { listName } = req.body;
 
-  // Check if list exists
   let list = lists.find((l) => l.name === listName);
   if (!list) {
-    // Create a new list
     list = {
-      id: uuid.v4(),
       name: listName,
-      owner: user.username,
-      members: [user.username],
-      tasks: [], // Start with empty tasks instead of dummy data
+      tasks: [],
     };
     lists.push(list);
-  } else if (!list.members.includes(user.username)) {
-    list.members.push(user.username);
   }
 
-  // Update user's subscribed list
   user.subscribedList = list.name;
   res.send(list);
 });
