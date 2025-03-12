@@ -9,6 +9,7 @@ import { AddTask } from "./add-task/add-task";
 import {
   clearEditingTask,
   selectEditingTask,
+  fetchTasks,
 } from "./features/tasks/tasksSlice";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
@@ -17,10 +18,15 @@ export default function App() {
   const dispatch = useDispatch();
   const authState = useSelector((state) => state.auth.authState);
   const editingTask = useSelector(selectEditingTask);
-
   const location = useLocation();
   const [previousLocation, setPreviousLocation] = useState(null);
   const [editingActive, setEditingActive] = useState(false);
+
+  useEffect(() => {
+    if (authState === AuthState.Authenticated) {
+      dispatch(fetchTasks());
+    }
+  }, [authState, dispatch]);
 
   useEffect(() => {
     setEditingActive(!!editingTask);
@@ -45,7 +51,6 @@ export default function App() {
           />
           <h1>Taskie</h1>
         </a>
-
         <nav>
           <menu>
             <li>
@@ -79,14 +84,12 @@ export default function App() {
           </menu>
         </nav>
       </header>
-
       <Routes>
         <Route path="/" element={<Login />} exact />
         <Route path="/task-list" element={<TaskList />} />
         <Route path="/add-task" element={<AddTask />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-
       <footer>
         <hr />
         <span className="text-reset">Kaden Keep</span>

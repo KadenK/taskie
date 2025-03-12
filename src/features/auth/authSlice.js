@@ -31,11 +31,10 @@ export const logout = createAsyncThunk(
   "auth/logout",
   async (_, { rejectWithValue }) => {
     try {
-      const data = await api.logout();
       Cookies.remove("username");
       Cookies.remove("subscribedList");
       Cookies.remove("authState");
-      localStorage.removeItem("tasks");
+      await api.logout();
       return null;
     } catch (error) {
       return rejectWithValue(error.message);

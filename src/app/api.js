@@ -9,7 +9,7 @@ const sendRequest = (url, method, data) => {
     if (!response.ok) {
       throw new Error("API Call Error: " + response.statusText);
     }
-    return response.json();
+    return response.status === 204 ? {} : response.json();
   });
 };
 

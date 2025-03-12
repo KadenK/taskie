@@ -9,9 +9,7 @@ export function Authenticated() {
   const username = useSelector((state) => state.auth.username);
 
   function handleLogout() {
-    dispatch(logout()).finally(() => {
-      localStorage.removeItem("username");
-    });
+    dispatch(logout());
   }
 
   return (
