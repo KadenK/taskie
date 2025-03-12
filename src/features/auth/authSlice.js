@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 
 const initialState = {
   username: Cookies.get("username") || null,
+  subscribedList: Cookies.get("subscribedList") || null,
   authState:
     Cookies.get("authState") === "authenticated"
       ? AuthState.Authenticated
@@ -17,6 +18,7 @@ export const login = createAsyncThunk(
     try {
       const data = await api.login(username, password);
       Cookies.set("username", username);
+      Cookies.set("subscribedList", data.subscribedList);
       Cookies.set("authState", AuthState.Authenticated);
       return data;
     } catch (error) {
@@ -31,6 +33,7 @@ export const logout = createAsyncThunk(
     try {
       const data = await api.logout();
       Cookies.remove("username");
+      Cookies.remove("subscribedList");
       Cookies.remove("authState");
       localStorage.removeItem("tasks");
       return null;
@@ -46,6 +49,7 @@ export const createUser = createAsyncThunk(
     try {
       const data = await api.createUser(username, password);
       Cookies.set("username", username);
+      Cookies.set("subscribedList", data.subscribedList);
       Cookies.set("authState", AuthState.Authenticated);
       return data;
     } catch (error) {
@@ -61,7 +65,8 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(login.fulfilled, (state, action) => {
-        state.username = action.payload;
+        state.username = action.payload.username;
+        state.subscribedList = action.payload.subscribedList;
         state.authState = AuthState.Authenticated;
       })
       .addCase(login.rejected, (state) => {
@@ -69,13 +74,15 @@ const authSlice = createSlice({
       })
       .addCase(logout.fulfilled, (state) => {
         state.username = null;
+        state.subscribedList = null;
         state.authState = AuthState.Unauthenticated;
       })
       .addCase(logout.rejected, (state) => {
         state.authState = AuthState.Authenticated;
       })
       .addCase(createUser.fulfilled, (state, action) => {
-        state.username = action.payload;
+        state.username = action.payload.username;
+        state.subscribedList = action.payload.subscribedList;
         state.authState = AuthState.Authenticated;
       })
       .addCase(createUser.rejected, (state) => {

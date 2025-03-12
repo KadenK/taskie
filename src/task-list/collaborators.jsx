@@ -5,8 +5,9 @@ import { collaborators as defaultCollaborators } from "../util/dummy";
 import { joinList } from "../features/tasks/tasksSlice";
 
 export function Collaborators() {
-  const [email, setEmail] = useState("");
+  const [listName, setListName] = useState("");
   const username = useSelector((state) => state.auth.username);
+  const subscribedList = useSelector((state) => state.auth.subscribedList);
   const dispatch = useDispatch();
 
   const [collaborators, setCollaborators] = useState(defaultCollaborators);
@@ -26,13 +27,16 @@ export function Collaborators() {
   }, []);
 
   const handleJoin = () => {
-    dispatch(joinList(email));
-    setEmail("");
+    if (listName) {
+      dispatch(joinList(listName));
+      setListName("");
+    }
   };
 
   return (
     <div className="collaborators-container">
       <h3>Collaborators</h3>
+      <div>Current list: {subscribedList || "None"}</div>
       <ul>
         <li>
           <span>{username}</span>
@@ -46,13 +50,13 @@ export function Collaborators() {
           </li>
         ))}
       </ul>
-      <div>Join another user's list:</div>
+      <div>Join a list:</div>
       <input
         className="share-input"
-        type="email"
-        placeholder="friend@email.com"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        type="text"
+        placeholder="Enter list name"
+        value={listName}
+        onChange={(e) => setListName(e.target.value)}
       />
       <button type="button" onClick={handleJoin}>
         Join
