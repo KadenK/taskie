@@ -42,6 +42,14 @@ main.signin {
       width: 100%;
     }
 
+    .error-message {
+      width: auto;
+      color: red;
+      font-size: large;
+      text-align: center;
+      margin-top: -20px;
+    }
+
     span {
       width: 20%;
       padding: 10px;
