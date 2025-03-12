@@ -1,8 +1,13 @@
 import React from "react";
 import "./task-list.scss";
 import { weatherConditions } from "../util/dummy";
+import api from "../app/api";
 
 export function Weather() {
+  const handleWeatherClick = () => {
+    api.getWeatherConditions();
+  };
+
   return (
     <div className="weather-container">
       <h3 className="weather-title">Weather</h3>
@@ -14,6 +19,8 @@ export function Weather() {
             alt={weatherConditions.today.condition.name}
             width="64px"
             height="64px"
+            onClick={handleWeatherClick}
+            style={{ cursor: "pointer" }}
           />
           <span>{weatherConditions.today.temperature}°F</span>
         </div>
@@ -24,6 +31,8 @@ export function Weather() {
             alt={weatherConditions.tomorrow.condition.name}
             width="64px"
             height="64px"
+            onClick={handleWeatherClick}
+            style={{ cursor: "pointer" }}
           />
           <span>{weatherConditions.tomorrow.temperature}°F</span>
         </div>
