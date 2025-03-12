@@ -59,7 +59,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 - [x] **Text** - There are various textual descriptions and labels throughout the application to help describe how to properly use the app.
 - [x] **3rd party API placeholder** - There is a placeholder for the external weather API that I will be querying.
 - [x] **Images** - There are various images, such as a brand logo, chevron icons, and weather indicators on the site.
-- [x] **Login placeholder** - The default page is a login/signup form that accepts an email and password. Additionally, the task list page includes your current username in the "Collaborators" section
+- [x] **Login placeholder** - The default page is a login/signup form that accepts an username and password. Additionally, the task list page includes your current username in the "Collaborators" section
 - [x] **DB data placeholder** - The task list represents data that will be stored in a DB for each user
 - [x] **WebSocket placeholder** - The collaborators section indicates who is currently active (all users who are currently on the websocket) and through the websocket the task list will automatically upate with changes made by other users.
 

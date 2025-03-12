@@ -19,12 +19,12 @@ export function Unauthenticated() {
   return (
     <div className="unauthenticated account-form">
       <div>
-        <span>Email</span>
+        <span>Username</span>
         <input
           type="text"
           value={username}
           onChange={(e) => setUserName(e.target.value)}
-          placeholder="your@email.com"
+          placeholder="username"
         />
       </div>
       <div>
