@@ -31,21 +31,25 @@ apiRouter.post("/auth/create", async (req, res) => {
   if (await findUser("username", req.body.username)) {
     res.status(409).send({ msg: "Existing user" });
   } else {
-    const user = await createUser(req.body.username, req.body.password);
-
+    const username = req.body.username;
     // Create a default list for the new user
     const defaultList = {
       id: uuid.v4(),
-      name: "Default List",
-      owner: user.username,
-      members: [user.username],
+      name: username + "'s List",
+      owner: username,
+      members: [username],
       tasks: [],
     };
     lists.push(defaultList);
-    user.subscribedList = defaultList.name;
+
+    const user = await createUser(
+      username,
+      req.body.password,
+      defaultList.name
+    );
 
     setAuthCookie(res, user.token);
-    res.send({ username: user.username });
+    res.send({ username: user.username, subscribedList: user.subscribedList });
   }
 });
 
@@ -220,14 +224,14 @@ app.use(function (err, req, res, next) {
 });
 
 /**  Begin helper functions  **/
-async function createUser(username, password) {
+async function createUser(username, password, subscribedList) {
   const passwordHash = await bcrypt.hash(password, 10);
 
   const user = {
     username: username,
     password: passwordHash,
     token: uuid.v4(),
-    subscribedList: null, // Will be set to default list name
+    subscribedList,
   };
   users.push(user);
 
