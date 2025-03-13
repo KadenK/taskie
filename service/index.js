@@ -242,6 +242,11 @@ function setAuthCookie(res, authToken) {
   });
 }
 
+// Return the application's default page if the path is unknown
+app.use((_req, res) => {
+  res.sendFile("index.html", { root: "public" });
+});
+
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
