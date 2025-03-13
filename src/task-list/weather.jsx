@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./task-list.scss";
-import { weatherConditions } from "../util/dummy";
 import api from "../app/api";
 
 export function Weather() {
-  const handleWeatherClick = () => {
-    api.getWeatherConditions();
+  const [weatherConditions, setWeatherConditions] = React.useState(null);
+
+  useEffect(() => {
+    const fetchWeather = async () => {
+      setWeatherConditions(await api.getWeatherConditions());
+    };
+    fetchWeather();
+  }, []);
+
+  const handleWeatherClick = async () => {
+    setWeatherConditions(await api.getWeatherConditions());
   };
+
+  if (!weatherConditions) {
+    return null;
+  }
 
   return (
     <div className="weather-container">
@@ -22,7 +34,7 @@ export function Weather() {
             onClick={handleWeatherClick}
             style={{ cursor: "pointer" }}
           />
-          <span>{weatherConditions.today.temperature}°F</span>
+          <span>{weatherConditions.today.temperature} °F</span>
         </div>
         <div className="weather-item weather-tomorrow">
           <h4>Tomorrow</h4>
@@ -34,7 +46,7 @@ export function Weather() {
             onClick={handleWeatherClick}
             style={{ cursor: "pointer" }}
           />
-          <span>{weatherConditions.tomorrow.temperature}°F</span>
+          <span>{weatherConditions.tomorrow.temperature} °F</span>
         </div>
       </div>
     </div>
