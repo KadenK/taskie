@@ -93,11 +93,12 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Node.js/Express HTTP service** - I did not complete this part of the deliverable.
-- [ ] **Static middleware for frontend** - I did not complete this part of the deliverable.
-- [ ] **Calls to third party endpoints** - I did not complete this part of the deliverable.
-- [ ] **Backend service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Frontend calls service endpoints** - I did not complete this part of the deliverable.
+- [x] **Node.js/Express HTTP service** - Done
+- [x] **Static middleware for frontend** - Done
+- [x] **Calls to third party endpoints** - I call a geo-ip API to get the approximate current location of the user to then pass that into a weather API
+- [x] **Backend service endpoints** - I implemented user login/create/logout endpoints along with a suite of endpoints for managing tasks. Currently, all data used on those endpoints are stored in local memory.
+- [x] **Frontend calls service endpoints** - I implemented a sendRequest function within my api component that handles getting data from the backend, instead of just returning dummy data.
+- [x] **Supports registration, login, logout, and restricted endpoint** - I have login, logout, and create, along with all the task endpoints only allowing authorized users.
 
 ## 🚀 DB/Login deliverable
 
