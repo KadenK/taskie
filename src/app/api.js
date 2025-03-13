@@ -16,9 +16,11 @@ const sendRequest = (url, method, data) => {
 };
 
 const getWeatherConditions = async () => {
-  const { lat, lon } = await (await fetch("http://ip-api.com/json/")).json();
+  const { latitude, longitude } = await (
+    await fetch("https://ipapi.co/json/")
+  ).json();
   const weatherResponse = await fetch(
-    `https://api.open-meteo.com/v1/forecast?longitude=${lon}&latitude=${lat}&current=temperature_2m,weather_code&temperature_unit=fahrenheit&daily=temperature_2m_min,temperature_2m_max,weather_code&temperature_unit=fahrenheit`
+    `https://api.open-meteo.com/v1/forecast?longitude=${longitude}&latitude=${latitude}&current=temperature_2m,weather_code&temperature_unit=fahrenheit&daily=temperature_2m_min,temperature_2m_max,weather_code&temperature_unit=fahrenheit`
   );
   const weatherData = await weatherResponse.json();
   return {

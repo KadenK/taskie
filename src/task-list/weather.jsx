@@ -13,7 +13,6 @@ export function Weather() {
       setWeatherConditions(conditions);
       setIsLoading(false);
     };
-    console.log("Fetching weather data...");
     fetchWeather();
   }, []);
 
