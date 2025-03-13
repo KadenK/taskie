@@ -109,6 +109,15 @@ main.task-list {
         h4 {
           margin: 10px 0 5px 0;
         }
+
+        .weather-skeleton-icon {
+          width: 64px;
+          height: 64px;
+          display: inline-block;
+        }
+        .weather-skeleton-temp {
+          padding: 0 8px;
+        }
       }
     }
   }
