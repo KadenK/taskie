@@ -1,4 +1,5 @@
 import { weatherCodeMap } from "../util/util";
+import Cookies from "js-cookie";
 
 const sendRequest = (url, method, data) => {
   return fetch(url, {
@@ -16,6 +17,16 @@ const sendRequest = (url, method, data) => {
 };
 
 const getWeatherConditions = async () => {
+  // Store the weather as a cookie for an hour to prevent api throttling
+  const weatherCookie = Cookies.get("weatherData");
+  if (weatherCookie) {
+    try {
+      const cachedWeather = JSON.parse(weatherCookie);
+      return cachedWeather;
+    } catch (error) {}
+  }
+
+  // If the cookie doesn't exist
   const { latitude, longitude } = await (
     await fetch("https://ipapi.co/json/")
   ).json();
@@ -23,7 +34,8 @@ const getWeatherConditions = async () => {
     `https://api.open-meteo.com/v1/forecast?longitude=${longitude}&latitude=${latitude}&current=temperature_2m,weather_code&temperature_unit=fahrenheit&daily=temperature_2m_min,temperature_2m_max,weather_code&temperature_unit=fahrenheit`
   );
   const weatherData = await weatherResponse.json();
-  return {
+
+  const weatherConditions = {
     today: {
       condition: weatherCodeMap[weatherData.current.weather_code],
       temperature: weatherData.current.temperature_2m,
@@ -36,6 +48,12 @@ const getWeatherConditions = async () => {
         Math.floor(weatherData.daily.temperature_2m_min[1]),
     },
   };
+
+  Cookies.set("weatherData", JSON.stringify(weatherConditions), {
+    expires: 1 / 24,
+  });
+
+  return weatherConditions;
 };
 
 const api = {

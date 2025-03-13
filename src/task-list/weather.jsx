@@ -16,13 +16,6 @@ export function Weather() {
     fetchWeather();
   }, []);
 
-  const handleWeatherClick = async () => {
-    setIsLoading(true);
-    const conditions = await api.getWeatherConditions();
-    setWeatherConditions(conditions);
-    setIsLoading(false);
-  };
-
   return (
     <div className="weather-container">
       <h3 className="weather-title">Weather</h3>
@@ -41,7 +34,6 @@ export function Weather() {
                 alt={weatherConditions.today.condition.name}
                 width="64px"
                 height="64px"
-                onClick={handleWeatherClick}
                 style={{ cursor: "pointer" }}
               />
               <span>{weatherConditions.today.temperature} °F</span>
@@ -62,7 +54,6 @@ export function Weather() {
                 alt={weatherConditions.tomorrow.condition.name}
                 width="64px"
                 height="64px"
-                onClick={handleWeatherClick}
                 style={{ cursor: "pointer" }}
               />
               <span>{weatherConditions.tomorrow.temperature} °F</span>
