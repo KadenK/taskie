@@ -1,6 +1,6 @@
 import React from "react";
 import "./app.scss";
-import { NavLink, Route, Routes } from "react-router-dom";
+import { NavLink, Route, Routes, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Login } from "./login/login";
 import { AuthState } from "./login/authState";
@@ -19,6 +19,7 @@ export default function App() {
   const authState = useSelector((state) => state.auth.authState);
   const editingTask = useSelector(selectEditingTask);
   const location = useLocation();
+  const navigate = useNavigate();
   const [previousLocation, setPreviousLocation] = useState(null);
   const [editingActive, setEditingActive] = useState(false);
 
@@ -38,6 +39,17 @@ export default function App() {
     }
     setPreviousLocation(location.pathname);
   }, [location]);
+
+  useEffect(() => {
+    const authRequiredPaths = ["/task-list", "/add-task"];
+
+    if (
+      authState === AuthState.Unauthenticated &&
+      authRequiredPaths.includes(location.pathname)
+    ) {
+      navigate("/");
+    }
+  }, [authState, location.pathname, navigate]);
 
   return (
     <div className="body bg-dark text-light">
