@@ -104,11 +104,11 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **User registration** - I did not complete this part of the deliverable.
-- [ ] **User login and logout** - I did not complete this part of the deliverable.
-- [ ] **Stores data in MongoDB** - I did not complete this part of the deliverable.
-- [ ] **Stores credentials in MongoDB** - I did not complete this part of the deliverable.
-- [ ] **Restricts functionality based on authentication** - I did not complete this part of the deliverable.
+- [x] **User registration** - When the user creates an account, they are created in the db
+- [x] **User login and logout** - When a user logs in, an access token is created and saved in the DB. When logging out, that token is deleted.
+- [x] **Stores data in MongoDB** - Task list information and tasks are all stored in the DB
+- [x] **Stores credentials in MongoDB** - A hashed user password plus their username and an access token are stored in MongoDB
+- [x] **Restricts functionality based on authentication** - You can only access the lists if you are authenticated and you can only access the tasks of the list you are joined to.
 
 ## 🚀 WebSocket deliverable
 
