@@ -38,6 +38,10 @@ async function updateUser(user) {
   await userCollection.updateOne({ username: user.username }, { $set: user });
 }
 
+async function addList(list) {
+  await listCollection.insertOne(list);
+}
+
 async function getList(name) {
   return listCollection.findOne({ name: name });
 }
@@ -69,8 +73,9 @@ module.exports = {
   getUserByToken,
   addUser,
   updateUser,
-  addTask,
   getList,
+  addList,
+  addTask,
   deleteTask,
   updateTask,
 };

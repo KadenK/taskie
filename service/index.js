@@ -2,13 +2,9 @@ const cookieParser = require("cookie-parser");
 const bcrypt = require("bcrypt");
 const express = require("express");
 const uuid = require("uuid");
+const db = require("./database.js");
 const authCookieName = "token";
-
-// Local memory databases
-// Example: [{ username: "user1", password: "hashedpassword", token: "sometoken", subscribedList: "list1" }]
-let users = [];
-// Example: [{ name: "list1", tasks: [{ id: "1", name: "Task 1", checked: false, parentId: null }]}]
-let lists = [];
+// Database is now handled by MongoDB through database.js
 
 const app = express();
 const port = process.argv.length > 2 ? process.argv[2] : 4000;
@@ -28,7 +24,8 @@ app.use(`/api`, apiRouter);
 
 // CreateAuth a new user
 apiRouter.post("/auth/create", async (req, res) => {
-  if (await findUser("username", req.body.username)) {
+  const user = await db.getUser(req.body.username);
+  if (user) {
     res.status(409).send({ msg: "Existing user" });
   } else {
     const username = req.body.username;
@@ -37,26 +34,36 @@ apiRouter.post("/auth/create", async (req, res) => {
       name: username + "'s List",
       tasks: [],
     };
-    lists.push(defaultList);
+    db.addList(defaultList);
 
-    const user = await createUser(
-      username,
-      req.body.password,
-      defaultList.name
-    );
+    const passwordHash = await bcrypt.hash(password, 10);
 
-    setAuthCookie(res, user.token);
-    res.send({ username: user.username, subscribedList: user.subscribedList });
+    const user = {
+      username: username,
+      password: passwordHash,
+      token: uuid.v4(),
+      subscribedList: defaultList.name,
+    };
+
+    await db.addUser(user);
+
+    setAuthCookie(res, newUser.token);
+    res.send({
+      username: newUser.username,
+      subscribedList: newUser.subscribedList,
+    });
   }
 });
 
 // GetAuth login an existing user
 apiRouter.post("/auth/login", async (req, res) => {
-  const user = await findUser("username", req.body.username);
+  const user = await db.getUser(req.body.username);
   if (user) {
     if (await bcrypt.compare(req.body.password, user.password)) {
-      user.token = uuid.v4();
-      setAuthCookie(res, user.token);
+      const token = uuid.v4();
+      user.token = token;
+      await db.updateUser(user);
+      setAuthCookie(res, token);
       res.send({
         username: user.username,
         subscribedList: user.subscribedList,
@@ -69,9 +76,10 @@ apiRouter.post("/auth/login", async (req, res) => {
 
 // DeleteAuth logout a user
 apiRouter.delete("/auth/logout", async (req, res) => {
-  const user = await findUser("token", req.cookies[authCookieName]);
+  const user = await db.getUserByToken(req.cookies[authCookieName]);
   if (user) {
-    delete user.token;
+    user.token = null;
+    await db.updateUser(user);
   }
   res.clearCookie(authCookieName);
   res.status(204).end();
@@ -79,7 +87,7 @@ apiRouter.delete("/auth/logout", async (req, res) => {
 
 // Middleware to verify that the user is authorized to call an endpoint
 const verifyAuth = async (req, res, next) => {
-  const user = await findUser("token", req.cookies[authCookieName]);
+  const user = await db.getUserByToken(req.cookies[authCookieName]);
   if (user) {
     next();
   } else {
@@ -89,8 +97,8 @@ const verifyAuth = async (req, res, next) => {
 
 // Get all tasks
 apiRouter.get("/tasks", verifyAuth, async (req, res) => {
-  const user = await findUser("token", req.cookies[authCookieName]);
-  const list = lists.find((l) => l.name === user.subscribedList);
+  const user = await db.getUserByToken(req.cookies[authCookieName]);
+  const list = await db.getList(user.subscribedList);
 
   if (list) {
     res.send(list.tasks || []);
@@ -102,8 +110,8 @@ apiRouter.get("/tasks", verifyAuth, async (req, res) => {
 // Get a specific task by ID
 apiRouter.get("/tasks/:id", verifyAuth, async (req, res) => {
   const taskId = req.params.id;
-  const user = await findUser("token", req.cookies[authCookieName]);
-  const list = lists.find((l) => l.name === user.subscribedList);
+  const user = await db.getUserByToken(req.cookies[authCookieName]);
+  const list = await db.getList(user.subscribedList);
 
   if (!list) {
     res.status(404).send({ msg: "List not found or unauthorized" });
@@ -120,8 +128,8 @@ apiRouter.get("/tasks/:id", verifyAuth, async (req, res) => {
 
 // Create a new task
 apiRouter.post("/tasks", verifyAuth, async (req, res) => {
-  const user = await findUser("token", req.cookies[authCookieName]);
-  const list = lists.find((l) => l.name === user.subscribedList);
+  const user = await db.getUserByToken(req.cookies[authCookieName]);
+  const list = await db.getList(user.subscribedList);
 
   if (!list) {
     res.status(404).send({ msg: "List not found or unauthorized" });
@@ -134,19 +142,15 @@ apiRouter.post("/tasks", verifyAuth, async (req, res) => {
     createdDate: new Date().toISOString(),
   };
 
-  if (!list.tasks) {
-    list.tasks = [];
-  }
-
-  list.tasks.push(task);
+  await db.addTask(user.subscribedList, task);
   res.status(201).send(task);
 });
 
 // Update a task
 apiRouter.put("/tasks/:id", verifyAuth, async (req, res) => {
   const taskId = req.params.id;
-  const user = await findUser("token", req.cookies[authCookieName]);
-  const list = lists.find((l) => l.name === user.subscribedList);
+  const user = await db.getUserByToken(req.cookies[authCookieName]);
+  const list = await db.getList(user.subscribedList);
 
   if (!list) {
     res.status(404).send({ msg: "List not found or unauthorized" });
@@ -162,7 +166,7 @@ apiRouter.put("/tasks/:id", verifyAuth, async (req, res) => {
       modifiedDate: new Date().toISOString(),
     };
 
-    list.tasks[taskIndex] = updatedTask;
+    await db.updateTask(user.subscribedList, updatedTask);
     res.send(updatedTask);
   } else {
     res.status(404).send({ msg: "Task not found" });
@@ -172,8 +176,8 @@ apiRouter.put("/tasks/:id", verifyAuth, async (req, res) => {
 // Delete a task
 apiRouter.delete("/tasks/:id", verifyAuth, async (req, res) => {
   const taskId = req.params.id;
-  const user = await findUser("token", req.cookies[authCookieName]);
-  const list = lists.find((l) => l.name === user.subscribedList);
+  const user = await db.getUserByToken(req.cookies[authCookieName]);
+  const list = await db.getList(user.subscribedList);
 
   if (!list) {
     res.status(404).send({ msg: "List not found or unauthorized" });
@@ -182,7 +186,7 @@ apiRouter.delete("/tasks/:id", verifyAuth, async (req, res) => {
 
   const taskIndex = list.tasks?.findIndex((t) => t.id.toString() === taskId);
   if (taskIndex !== -1) {
-    list.tasks.splice(taskIndex, 1);
+    await db.deleteTask(user.subscribedList, taskId);
     res.status(204).end();
   } else {
     res.status(404).send({ msg: "Task not found" });
@@ -191,19 +195,23 @@ apiRouter.delete("/tasks/:id", verifyAuth, async (req, res) => {
 
 // Join a list
 apiRouter.post("/lists/join", verifyAuth, async (req, res) => {
-  const user = await findUser("token", req.cookies[authCookieName]);
+  const user = await db.getUserByToken(req.cookies[authCookieName]);
   const { listName } = req.body;
 
-  let list = lists.find((l) => l.name === listName);
+  let list = await db.getList(listName);
   if (!list) {
+    // Create a new list if it doesn't exist
     list = {
       name: listName,
       tasks: [],
     };
-    lists.push(list);
+    list = await db.getList(listName);
   }
 
+  // Update user's subscribed list
   user.subscribedList = list.name;
+  await db.updateUser(user);
+
   res.send(list);
 });
 
@@ -211,27 +219,6 @@ apiRouter.post("/lists/join", verifyAuth, async (req, res) => {
 app.use(function (err, req, res, next) {
   res.status(500).send({ type: err.name, message: err.message });
 });
-
-/**  Begin helper functions  **/
-async function createUser(username, password, subscribedList) {
-  const passwordHash = await bcrypt.hash(password, 10);
-
-  const user = {
-    username: username,
-    password: passwordHash,
-    token: uuid.v4(),
-    subscribedList,
-  };
-  users.push(user);
-
-  return user;
-}
-
-async function findUser(field, value) {
-  if (!value) return null;
-
-  return users.find((u) => u[field] === value);
-}
 
 // setAuthCookie in the HTTP response
 function setAuthCookie(res, authToken) {
