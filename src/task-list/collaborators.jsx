@@ -54,7 +54,7 @@ export function Collaborators() {
       <input
         className="share-input"
         type="text"
-        placeholder="Enter list name"
+        placeholder="John's List"
         value={listName}
         onChange={(e) => setListName(e.target.value)}
       />
