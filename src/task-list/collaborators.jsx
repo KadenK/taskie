@@ -50,11 +50,11 @@ export function Collaborators() {
           </li>
         ))}
       </ul>
-      <div>Join a list:</div>
+      <div>Join/Create a list:</div>
       <input
         className="share-input"
         type="text"
-        placeholder="John's List"
+        placeholder="e.g. John's List"
         value={listName}
         onChange={(e) => setListName(e.target.value)}
       />
