@@ -36,7 +36,7 @@ apiRouter.post("/auth/create", async (req, res) => {
     };
     db.addList(defaultList);
 
-    const passwordHash = await bcrypt.hash(password, 10);
+    const passwordHash = await bcrypt.hash(req.body.password, 10);
 
     const user = {
       username: username,
@@ -46,6 +46,7 @@ apiRouter.post("/auth/create", async (req, res) => {
     };
 
     await db.addUser(user);
+    const newUser = await db.getUser(username);
 
     setAuthCookie(res, newUser.token);
     res.send({
