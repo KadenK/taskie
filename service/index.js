@@ -207,6 +207,7 @@ apiRouter.post("/lists/join", verifyAuth, async (req, res) => {
       name: listName,
       tasks: [],
     };
+    await db.addList(list);
     list = await db.getList(listName);
   }
 
