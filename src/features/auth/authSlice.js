@@ -60,7 +60,12 @@ export const createUser = createAsyncThunk(
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    updateSubscribedList(state, action) {
+      state.subscribedList = action.payload;
+      Cookies.set("subscribedList", action.payload);
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(login.fulfilled, (state, action) => {
@@ -89,5 +94,7 @@ const authSlice = createSlice({
       });
   },
 });
+
+export const { updateSubscribedList } = authSlice.actions;
 
 export default authSlice.reducer;

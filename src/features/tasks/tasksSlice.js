@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
 import api from "../../app/api";
+import { updateSubscribedList } from "../auth/authSlice";
 
 const initialState = {
   tasks: [],
@@ -58,9 +59,11 @@ export const fetchTasks = createAsyncThunk(
 
 export const joinList = createAsyncThunk(
   "tasks/joinList",
-  async (listName, { rejectWithValue }) => {
+  async (listName, { rejectWithValue, dispatch }) => {
     try {
       const data = await api.joinList(listName);
+      // Update the subscribed list in the auth slice
+      dispatch(updateSubscribedList(data.name || listName));
       return data.tasks || [];
     } catch (error) {
       return rejectWithValue(error.message);
