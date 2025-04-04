@@ -7,6 +7,7 @@ import {
   updateTask,
 } from "../features/tasks/tasksSlice";
 import { useNavigate } from "react-router-dom";
+import { CollabEventType, CollaboratorsNotifier } from "./collaboratorsHandler";
 
 export function TaskItem({ task }) {
   const children = useSelector((state) => selectTaskChildren(state, task));
@@ -14,10 +15,17 @@ export function TaskItem({ task }) {
   const navigate = useNavigate();
   const [checked, setChecked] = useState(task.checked);
 
+  // Update local state when Redux task changes
+  useEffect(() => {
+    setChecked(task.checked);
+  }, [task.checked]);
+
+  // Update Redux when local state changes
   useEffect(() => {
     if (checked !== task.checked) {
       const updatedTask = { ...task, checked };
       dispatch(updateTask(updatedTask));
+      CollaboratorsNotifier.sendEvent(CollabEventType.Update);
     }
   }, [checked]);
 

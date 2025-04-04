@@ -9,6 +9,10 @@ import {
   selectAllTasks,
 } from "../features/tasks/tasksSlice";
 import { useNavigate } from "react-router-dom";
+import {
+  CollaboratorsNotifier,
+  CollabEventType,
+} from "../task-list/collaboratorsHandler";
 
 export function AddTask() {
   const dispatch = useDispatch();
@@ -29,6 +33,7 @@ export function AddTask() {
         updatedTask.expiration = formData.get("expiration");
       }
       dispatch(updateTask(updatedTask));
+      CollaboratorsNotifier.sendEvent(CollabEventType.Update);
       navigate("/task-list");
       return;
     } else {
@@ -41,6 +46,7 @@ export function AddTask() {
         task.expiration = formData.get("expiration");
       }
       dispatch(addTask(task));
+      CollaboratorsNotifier.sendEvent(CollabEventType.Add);
       navigate("/task-list");
     }
   };
@@ -48,6 +54,7 @@ export function AddTask() {
   const handleDeleteTask = () => {
     if (editingTask) {
       dispatch(deleteTask(editingTask));
+      CollaboratorsNotifier.sendEvent(CollabEventType.Delete);
       navigate("/task-list");
     }
   };

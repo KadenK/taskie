@@ -3,6 +3,7 @@ const { WebSocketServer, WebSocket } = require("ws");
 const CollabEventType = {
   Add: "Added a Task",
   Update: "Updated a Task",
+  Delete: "Deleted a Task",
   Join: "Joined the list",
   Leave: "Left the list",
   ListStatus: "List Status",

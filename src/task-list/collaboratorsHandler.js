@@ -3,6 +3,7 @@ import { store } from "../app/store";
 const CollabEventType = {
   Add: "Added a Task",
   Update: "Updated a Task",
+  Delete: "Deleted a Task",
   Join: "Joined the list",
   Leave: "Left the list",
   ListStatus: "List Status",
@@ -39,8 +40,8 @@ class CollaboratorsEventNotifier {
         }
         event = JSON.parse(event);
         this.receiveEvent(event);
-      } catch {
-        console.error("Error parsing message:", msg);
+      } catch (error) {
+        console.error("Error parsing message:", error);
       }
     };
   }

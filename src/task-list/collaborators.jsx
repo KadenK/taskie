@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./task-list.scss";
 import { useSelector, useDispatch } from "react-redux";
-import { joinList } from "../features/tasks/tasksSlice";
+import { joinList, fetchTasks } from "../features/tasks/tasksSlice";
 import { CollabEventType, CollaboratorsNotifier } from "./collaboratorsHandler";
 
 export function Collaborators() {
@@ -43,9 +43,19 @@ export function Collaborators() {
       return;
     }
 
+    if (
+      [
+        CollabEventType.Add,
+        CollabEventType.Update,
+        CollabEventType.Delete,
+      ].includes(status)
+    ) {
+      console.log("Updating task list");
+      setTimeout(() => dispatch(fetchTasks()), 100);
+    }
+
     // Find the collaborator in the list
     const index = collaborators.findIndex((collaborator) => {
-      console.log("Collaborator:", collaborator, name);
       return collaborator.name === name;
     });
 
@@ -69,7 +79,7 @@ export function Collaborators() {
         }
         return currentCollaborators;
       });
-    }, 5000);
+    }, 3000);
 
     // If not in the list yet, add it
     if (index === -1) {
