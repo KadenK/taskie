@@ -1,14 +1,53 @@
-const { WebSocketServer } = require('ws');
+const { WebSocketServer, WebSocket } = require("ws");
+
+const CollabEventType = {
+  Add: "Added a Task",
+  Update: "Updated a Task",
+  Join: "Joined the list",
+  Leave: "Left the list",
+  ListStatus: "List Status",
+};
 
 function peerProxy(httpServer) {
   // Create a websocket object
   const socketServer = new WebSocketServer({ server: httpServer });
 
-  socketServer.on('connection', (socket) => {
+  const listCollaborators = {};
+  const clientList = {};
+
+  socketServer.on("connection", (socket) => {
     socket.isAlive = true;
+    console.log("New client connected");
 
     // Forward messages to everyone except the sender
-    socket.on('message', function message(data) {
+    socket.on("message", function message(data) {
+      const msg = JSON.parse(data);
+      console.log("Received message:", msg);
+
+      // Handle join and leave events
+      if (msg.type === CollabEventType.Join) {
+        console.log("User joined:", msg.from);
+        const listName = msg.listName;
+        if (!listCollaborators[listName]) {
+          listCollaborators[listName] = new Set();
+        }
+        const response = {
+          from: "server",
+          type: CollabEventType.ListStatus,
+          listName: listName,
+          collaborators: Array.from(listCollaborators[listName]),
+        };
+        console.log("Sending list status:", response);
+        socket.send(JSON.stringify(response));
+        listCollaborators[listName].add(msg.from);
+        clientList[socket] = msg.from;
+      } else if (msg.type === CollabEventType.Leave) {
+        const listName = msg.listName;
+        if (listCollaborators[listName]) {
+          listCollaborators[listName].delete(msg.from);
+        }
+      }
+
       socketServer.clients.forEach((client) => {
         if (client !== socket && client.readyState === WebSocket.OPEN) {
           client.send(data);
@@ -17,7 +56,7 @@ function peerProxy(httpServer) {
     });
 
     // Respond to pong messages by marking the connection alive
-    socket.on('pong', () => {
+    socket.on("pong", () => {
       socket.isAlive = true;
     });
   });
