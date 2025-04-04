@@ -62,8 +62,6 @@ class CollaboratorsEventNotifier {
   }
 
   receiveEvent(event) {
-    console.log("Received event:", event);
-
     this.handlers.forEach((handler) => {
       handler(event);
     });

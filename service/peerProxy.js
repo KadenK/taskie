@@ -23,11 +23,9 @@ function peerProxy(httpServer) {
     // Forward messages to everyone except the sender
     socket.on("message", function message(data) {
       const msg = JSON.parse(data);
-      console.log("Received message:", msg);
 
       // Handle join and leave events
       if (msg.type === CollabEventType.Join) {
-        console.log("User joined:", msg.from);
         const listName = msg.listName;
         if (!listCollaborators[listName]) {
           listCollaborators[listName] = new Set();
@@ -38,7 +36,6 @@ function peerProxy(httpServer) {
           listName: listName,
           collaborators: Array.from(listCollaborators[listName]),
         };
-        console.log("Sending list status:", response);
         socket.send(JSON.stringify(response));
         listCollaborators[listName].add(msg.from);
         clientList[socket] = msg.from;

@@ -27,7 +27,6 @@ export function Collaborators() {
 
     // Only care abou the current list
     if (listName !== subscribedList) {
-      console.log("Not subscribed to this list");
       return;
     }
 
@@ -50,7 +49,6 @@ export function Collaborators() {
         CollabEventType.Delete,
       ].includes(status)
     ) {
-      console.log("Updating task list");
       setTimeout(() => dispatch(fetchTasks()), 100);
     }
 
