@@ -114,8 +114,9 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Backend listens for WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **Frontend makes WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **Data sent over WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **WebSocket data displayed** - I did not complete this part of the deliverable.
-- [ ] **Application is fully functional** - I did not complete this part of the deliverable.
+- [x] **Backend listens for WebSocket connection** - The backend supports hosting a websocket and checks for connection health.
+- [x] **Frontend makes WebSocket connection** - Every frontend client connects to the backend websocket to handle the collaborators list
+- [x] **Data sent over WebSocket connection** - Collaborator events trigger websocket messages so that everyone can see what other collaborators do.
+- [x] **WebSocket data displayed** - In the collaborators section, when a collaborator makes an action, a message is displayed for 3 seconds detailing what it was and the task list is updated
+- [x] **Application is fully functional** - Every part of the application functions. The list can be modified and updated. Users can create/signin to their accounts. You can join or create a list, and while on a list, you can see what other collaborators do through a websocket connection. Weather information is based on the user's IP address location and fetched from a 3rd party API. All info is stored on a MongoDB database and user authentication persists through cookies.
+      Note: The join list feature allows you to create or join a list. The default user's list is "{username}'s List" but can be changed simply by joining a new list, even if that list does not yet exist.
